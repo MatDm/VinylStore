@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VinylStore.Entities;
+using VinylStore.Models;
 
 namespace VinylStore.Abstract
 {
     public interface IVinylRepository
     {
         IEnumerable<Vinyl> Get();
+        Vinyl GetById(int id);
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using VinylStore.Entities;
+using VinylStore.Concrete;
 
 namespace VinylStore
 {
@@ -15,25 +16,23 @@ namespace VinylStore
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-            //Seed();
+            var host = CreateWebHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<VinylStoreDbContext>();
+                    DbInitializer.Seed(context);
+                }
+                catch (Exception)
+                {
+                    //we could log this in a real-world situation
+                }
+            }
+            host.Run();
         }
-
-        //private static void Seed()
-        //{
-        //    List<Vinyl> vinyls = new List<Vinyl>()
-        //    {
-        //        new Vinyl
-        //        {
-        //            AlbumName = "Television City Dream",
-        //            BandName = "Screeching Weasel",
-        //            Genre = "Punk Rock",
-        //            ReleaseYear = "1998",
-        //            Price = 20
-        //        }
-        //    };
-        //}
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

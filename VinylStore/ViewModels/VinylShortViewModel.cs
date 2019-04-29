@@ -5,14 +5,10 @@ using System.Threading.Tasks;
 
 namespace VinylStore.ViewModels
 {
-    public class VinylViewModel
+    public class VinylShortViewModel
     {
         public string ImageUrl { get; set; }
         public string AlbumName { get; set; }
         public string ArtistName { get; set; }
-        public string Genre { get; set; }
-        public string ReleaseYear { get; set; }
-        public string[] TrackList { get; set; }
-        public decimal Price { get; set; }
     }
 }

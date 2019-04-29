@@ -12,7 +12,7 @@ namespace VinylStore.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("List", "Vinyl");
         }
 
         public IActionResult Privacy()

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VinylStore.Entities;
+using VinylStore.Models;
 
-namespace VinylStore.Abstract
+namespace VinylStore.Concrete
 {
     public class VinylStoreDbContext : DbContext
     {
@@ -15,5 +15,10 @@ namespace VinylStore.Abstract
 
         }
         public DbSet<Vinyl> Vinyls { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }

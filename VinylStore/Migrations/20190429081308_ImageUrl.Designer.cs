@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinylStore.Concrete;
 
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(VinylStoreDbContext))]
-    partial class VinylStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190429081308_ImageUrl")]
+    partial class ImageUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +37,6 @@ namespace VinylStore.Migrations
                     b.Property<decimal>("Price");
 
                     b.Property<string>("ReleaseYear");
-
-                    b.Property<string>("_trackList")
-                        .HasColumnName("TrackList");
 
                     b.HasKey("Id");
 
