@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using VinylStore.Models;
 
 namespace VinylStore.Concrete
 {
-    public class VinylStoreDbContext : DbContext
+    public class VinylStoreDbContext : IdentityDbContext<IdentityUser>
     {
         public VinylStoreDbContext(DbContextOptions<VinylStoreDbContext> options)
             : base (options)
@@ -18,7 +20,7 @@ namespace VinylStore.Concrete
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
