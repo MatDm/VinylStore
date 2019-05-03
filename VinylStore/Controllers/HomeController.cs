@@ -4,15 +4,35 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VinylStore.Abstract;
 using VinylStore.Models;
+using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IVinylRepository _vinylRepository;
+        public HomeController(IVinylRepository vinylRepository)
         {
-            return RedirectToAction("List", "Vinyl");
+            _vinylRepository = vinylRepository;
+        }
+        public ViewResult Index()
+        {
+            var vinyls = _vinylRepository.Get();
+            var vinylShortViewModels = new List<VinylShortViewModel>();
+            foreach (var vinyl in vinyls)
+            {
+                var shortModel = new VinylShortViewModel()
+                {
+                    ImageUrl = vinyl.ImageUrl,
+                    AlbumName = vinyl.AlbumName,
+                    ArtistName = vinyl.ArtistName
+                };
+                vinylShortViewModels.Add(shortModel);
+            }
+
+            return View(vinylShortViewModels);
         }
 
         public IActionResult Privacy()

@@ -28,6 +28,7 @@ namespace VinylStore.Models
                 _trackList = string.Join($"{delimiter}", value);
             }
         }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
     }
 }
