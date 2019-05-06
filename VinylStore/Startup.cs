@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using VinylStore.Abstract;
 using VinylStore.Auth;
 using VinylStore.Concrete;
+using VinylStore.Models;
+using VinylStore.Services;
 
 namespace VinylStore
 {
@@ -45,8 +48,27 @@ namespace VinylStore
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<VinylStoreDbContext>();
 
+            services.AddAuthentication().AddGoogle(o =>
+            {
+                o.ClientId = "518688407704-27jgqps27u3knu06mr0cke94u3cuv2t6.apps.googleusercontent.com";
+                o.ClientSecret = "DLuuf96HS9gPwz1wmFBaRtke";
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //todo : a remplacer par du générique
             services.AddTransient<IVinylRepository, VinylRepository>();
+
+            //services.AddScoped<IRepository<UserVinyl>, Repository<UserVinyl>>();
+            services.AddScoped<IRepository<Vinyl>, Repository<Vinyl>>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserVinylRepository, UserVinylRepository>();
+
+
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +89,9 @@ namespace VinylStore
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+
+            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Vinyl>
+
+@{
+    ViewData["Title"] = "MyCollection";
+}
+
+<h1>MyCollection</h1>
+
+
+
+Coucou, vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName
+
+Recoucou, voici votre collection :
+
+@foreach (var vinyl in Model)
+{
+    <p>@vinyl.AlbumName</p>
+    <img src="@vinyl.ImageUrl" alt="l'image n'est pas dispo" />
+
+}
+

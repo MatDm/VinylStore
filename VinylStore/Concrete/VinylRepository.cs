@@ -19,9 +19,9 @@ namespace VinylStore.Concrete
             return _db.Vinyls;
         }
 
-        public Vinyl GetById(int id)
+        public Vinyl GetById(string id)
         {
-            var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id == id);
+            var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id.ToString() == id);
             return vinyl;
         }
     }

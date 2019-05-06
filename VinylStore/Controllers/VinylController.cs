@@ -36,7 +36,7 @@ namespace VinylStore.Controllers
 
         public IActionResult Details(int id)
         {
-            var vinyl = _vinylRepository.GetById(id);
+            var vinyl = _vinylRepository.GetById(id.ToString());
             var vinylViewModel = new VinylViewModel()
             {
                 ImageUrl = vinyl.ImageUrl,

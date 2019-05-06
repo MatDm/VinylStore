@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinylStore.Concrete;
 
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(VinylStoreDbContext))]
-    partial class VinylStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190506144912_UserVinyl table")]
+    partial class UserVinyltable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,7 +195,7 @@ namespace VinylStore.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<int>("VinylId");
+                    b.Property<string>("VinylId");
 
                     b.HasKey("Id");
 

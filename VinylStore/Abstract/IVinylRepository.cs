@@ -9,6 +9,8 @@ namespace VinylStore.Abstract
     public interface IVinylRepository
     {
         IEnumerable<Vinyl> Get();
-        Vinyl GetById(int id);
+        //Vinyl GetById(int id);
+        Vinyl GetById(string id);
+
     }
 }
