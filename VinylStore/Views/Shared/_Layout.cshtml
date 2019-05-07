@@ -51,12 +51,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="MyCollection">My Collection</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="DisplayMyCollection">My Collection</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             @await Component.InvokeAsync("AdminMenu")
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Discogs" asp-action="Search">Search</a>
+                        </li>
                     </ul>
                     @await  Html.PartialAsync("LoginPartial")
                 </div>

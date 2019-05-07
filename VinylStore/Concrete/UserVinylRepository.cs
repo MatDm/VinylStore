@@ -19,5 +19,11 @@ namespace VinylStore.Concrete
         {
             return _db.UserVinyls;
         }
+
+        public void Insert(UserVinyl userVinyl)
+        {
+            _db.UserVinyls.Add(userVinyl);
+            _db.SaveChanges();
+        }
     }
 }

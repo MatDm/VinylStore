@@ -12,5 +12,7 @@ namespace VinylStore.Abstract
         //Vinyl GetById(int id);
         Vinyl GetById(string id);
 
+        void Insert(Vinyl vinyl);
+
     }
 }

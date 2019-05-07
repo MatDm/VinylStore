@@ -24,5 +24,11 @@ namespace VinylStore.Concrete
             var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id.ToString() == id);
             return vinyl;
         }
+
+        public void Insert(Vinyl vinyl)
+        {
+            _db.Vinyls.Add(vinyl);
+            _db.SaveChanges();
+        }
     }
 }

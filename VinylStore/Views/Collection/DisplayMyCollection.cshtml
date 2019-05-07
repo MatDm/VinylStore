@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Vinyl>
 
 @{
-    ViewData["Title"] = "MyCollection";
+    ViewData["Title"] = "My Collection";
 }
 
 <h1>MyCollection</h1>
 
 
 
-Coucou, vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName
+<p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
 
-Recoucou, voici votre collection :
+<p>Votre collection :</p>
 
 @foreach (var vinyl in Model)
 {
