@@ -11,6 +11,7 @@ using VinylStore.Auth;
 using VinylStore.Concrete;
 using VinylStore.Models;
 using VinylStore.Services;
+using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
 {
@@ -38,58 +39,37 @@ namespace VinylStore.Controllers
             ViewBag.UserId = currentUser.Id;
             ViewBag.UserName = currentUser.UserName;
 
-            var vinylCollection = _userService.GetMyCollection(currentUser.Id);
-            //Todo : renvoyer un viewmodel et non une entité 
-            return View(vinylCollection);
+            var vinylCollection = _userService.GetMyCollection(currentUser.Id);             
+            var vinylShortViewModelList = new List<VinylShortViewModel>();
+            foreach (var vinyl in vinylCollection)
+            {
+                var shortModel = new VinylShortViewModel();
+
+                shortModel.ImageUrl = vinyl.ImageUrl;
+                shortModel.AlbumName = vinyl.AlbumName;
+                shortModel.ArtistName = vinyl.ArtistName ?? "";
+                
+                vinylShortViewModelList.Add(shortModel);
+            }
+            return View(vinylShortViewModelList);
         }
-
-        //albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year 
+        
         public async Task<IActionResult> AddToUserCollection(string albumName, string genre, string imageUrl, string releaseYear, string format)
-
-        {
-
-            // -------------------------------------- MARCHE A SUIVRE ------------------------------------- //
-
-            // Proposition d'étape 0
+        {            
             // Check si format est vinyl??
-
-            // Proposition d'étape 1
             // Je crée un objet à partir des informations que je récupère
-            var vinyl = new Vinyl() { AlbumName = albumName, Genre = genre, ImageUrl = imageUrl, ReleaseYear = releaseYear };
-            // Proposition d'étape 2
+            var vinyl = new Vinyl() { AlbumName = albumName, Genre = genre, ImageUrl = imageUrl, ReleaseYear = releaseYear};
             // Je l'ajoute à la base de donnée Vinyl
             _vinylRepo.Insert(vinyl);
-            // Proposition d'étape 3
             // J'ajoute la référence(maintenant crée) entre l'utilisateur qui le rajoute à sa collection 
             // donc entre UserId et l'Id du Vinyl
             var currentUser = await _userManager.GetUserAsync(User);
-            var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id };
+            var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = true };
             _userVinylRepo.Insert(userVinyl);
-
-            // Proposition d'étape 4
             //je redirige l'utilisateur vers sa collection (MISE a jour)
-
-            //VICTOIRE
-
-
-            return View();
-            ////je vais chercher les info du vinyl avec son BARCODE
-            //string urlApi = "https://api.discogs.com/database/search?id="
-            //    + vinylId.ToString() + "&key=" + consumerKey + "&secret=" + consumerSecret;
-            //using (var client = new HttpClient())
-            //using (var request = new HttpRequestMessage())
-            //{
-            //    request.Headers.Add("User-Agent", "VinylStore");
-            //    request.Method = HttpMethod.Get;
-            //    request.RequestUri = new Uri(urlApi);
-            //    var result = await client.SendAsync(request);
-            //    //tester statuscode
-            //    var parsedResult = await result.Content.ReadAsAsync<SearchVinyl>();
-            //    return View(parsedResult);
-            //}   
-
-
-
+            return RedirectToAction("DisplayMyCollection");             
         }
+
+        
     }
 }

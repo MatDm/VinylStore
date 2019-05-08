@@ -24,7 +24,16 @@
                     <tr>
                         <td><img src="@item.cover_image" alt="Alternate Text" height="150" width="150" /></td>
                         <td> @item.title</td>
-                        <td>@Html.ActionLink("Add to my collection", "AddToUserCollection", "Collection", new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })</td>
+                        <td>
+                            <div>
+                                @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", 
+                               new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
+                            </div>
+                            <div>
+                                @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", 
+                               new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
+                            </div>
+                        </td>
                     </tr>
                 }
             }

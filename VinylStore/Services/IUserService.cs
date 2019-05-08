@@ -6,5 +6,6 @@ namespace VinylStore.Services
     public interface IUserService
     {
         List<Vinyl> GetMyCollection(string userId);
+        List<Vinyl> GetMyWantlist(string id);
     }
 }

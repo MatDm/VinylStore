@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<VinylStore.ViewModels.VinylShortViewModel>
 
 @{
-    ViewData["Title"] = "My Collection";
+    ViewData["Title"] = "My Wantlist";
 }
 
-<h1>My Collection</h1>
+    <h1>My Wantlist</h1>
 
-
-
-<p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
-
-<p>Your collection :</p>
+<p>Your Wantlist :</p>
 
 @foreach (var vinyl in Model)
 {

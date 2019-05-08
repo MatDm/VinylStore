@@ -22,16 +22,29 @@ namespace VinylStore.Services
         {
 
             var userVinylTable = _userVinylRepo.GetAll();
-            var userVinylList = userVinylTable.Where(u => u.UserId == userId).ToList();
+            var userVinylList = userVinylTable.Where(u => u.UserId == userId && u.IsPossessed == true).ToList();
             var vinylList = new List<Vinyl>();
 
             foreach (var userVinyl in userVinylList)
             {
-                Vinyl vinyl = _vinylRepo.GetById(userVinyl.Id);
+                Vinyl vinyl = _vinylRepo.GetById(userVinyl.VinylId.ToString());
                 vinylList.Add(vinyl);
             }
             return vinylList;
+        }
 
+        public List<Vinyl> GetMyWantlist(string userId)
+        {
+            var userVinylTable = _userVinylRepo.GetAll();
+            var userVinylList = userVinylTable.Where(u => u.UserId == userId && u.IsPossessed == false).ToList();
+            var vinylList = new List<Vinyl>();
+
+            foreach (var userVinyl in userVinylList)
+            {
+                Vinyl vinyl = _vinylRepo.GetById(userVinyl.VinylId.ToString());
+                vinylList.Add(vinyl);
+            }
+            return vinylList;
         }
     }
 }
