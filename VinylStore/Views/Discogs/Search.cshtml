@@ -2,14 +2,16 @@
 @{
     ViewData["Title"] = "Search artists or albums";
 }
+    <div class="text-white">
+        <form action="Search" method="post">
 
-    <form action="Search" method="post">
-
-        <div>
-            <input type="text" placeholder="Search" name="query"/>
-            <button type="submit">
-                Search
-            </button>
-        </div>
-    </form>
+            <div>
+                <input type="text" placeholder="Search" name="query" />
+                <button type="submit">
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
+    
 

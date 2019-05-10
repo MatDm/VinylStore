@@ -4,18 +4,20 @@
     ViewData["Title"] = "My Collection";
 }
 
-<h1>My Collection</h1>
+<div class="text-white">
+    <h1>My Collection</h1>
 
 
 
-<p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
+    <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
 
-<p>Your collection :</p>
+    <p>Your collection :</p>
 
-@foreach (var vinyl in Model)
-{
-    <p>@vinyl.AlbumName</p>
-    <img src="@vinyl.ImageUrl" alt="l'image n'est pas dispo" height="150" width="150"/>
+    @foreach (var vinyl in Model)
+    {
+        <p>@vinyl.AlbumName</p>
+        <img src="@vinyl.ImageUrl" alt="l'image n'est pas dispo" height="150" width="150" />
 
-}
+    }
+</div>
 

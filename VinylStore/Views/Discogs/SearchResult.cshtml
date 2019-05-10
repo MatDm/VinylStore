@@ -1,21 +1,30 @@
-﻿@model SearchVinyl
+﻿@model SpotifyWebAPI.Artist
 
 @{
     ViewData["Title"] = "Search Result";
 }
+    <div class="text-white">
+        <h1>Search result</h1>
+        <h1 class="text-white">
+            @Model.Name
+                @Model.Id
+            </h1>
 
-<h1>Search result</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                
 
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.results)
+
+
+
+                @*@foreach (var item in Model.)
         {
             if (item.format != null)
             {
@@ -23,20 +32,22 @@
                 {
                     <tr>
                         <td><img src="@item.cover_image" alt="Alternate Text" height="150" width="150" /></td>
-                        <td> @item.title</td>
+                        <td class="text-white"> @item.title</td>
                         <td>
                             <div>
-                                @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", 
+                                @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection",
                                new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
                             </div>
                             <div>
-                                @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", 
+                                @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist",
                                new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
                             </div>
                         </td>
                     </tr>
                 }
             }
-        }
-    </tbody>
-</table>
+        }*@
+            </tbody>
+        </table>
+    </div>
+

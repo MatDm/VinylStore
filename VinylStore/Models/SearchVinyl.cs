@@ -48,6 +48,7 @@ namespace VinylStore.Models
         //    public Community community { get; set; }
             public string year { get; set; }
         //    public int format_quantity { get; set; }
+        public int release_id { get; set; }
     }
 
     public class Community

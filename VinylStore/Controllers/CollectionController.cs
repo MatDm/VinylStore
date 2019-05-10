@@ -66,6 +66,9 @@ namespace VinylStore.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = true };
             _userVinylRepo.Insert(userVinyl);
+
+            //return View("AddToUserCollectionForm", vinyl);
+
             //je redirige l'utilisateur vers sa collection (MISE a jour)
             return RedirectToAction("DisplayMyCollection");             
         }

@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
 @model IEnumerable<IdentityRole>
-
-<h2>Role management</h2>
+ 
+<h2 class="text-white">Role management</h2>
 
 @if (!Model.Any())
 {
@@ -10,7 +10,7 @@
 }
 else
 {
-    <table class="table table-condensed table-bordered">
+    <table class="table table-condensed table-bordered text-white">
         <tr>
             <th>Role ID</th>
             <th>Role name</th>
