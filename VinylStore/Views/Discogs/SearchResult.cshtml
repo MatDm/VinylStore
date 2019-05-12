@@ -1,30 +1,31 @@
-﻿@model SpotifyWebAPI.Artist
+﻿@model VinylStore.Models.SearchVinyl2
 
 @{
     ViewData["Title"] = "Search Result";
 }
-    <div class="text-white">
-        <h1>Search result</h1>
-        <h1 class="text-white">
-            @Model.Name
-                @Model.Id
-            </h1>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                
+<div class="text-white">
+    <h1>Search result</h1>
+    <table class="table table-striped text-white">
+        @for (int i = 0; i < Model.albums.items.Length; i++)
+        {
+            <tr>
+                <td>
+                    <img src="@Model.albums.items[i].images[0].url" alt="Image not available" height="150" width="150" />
+                </td>
+                <td>
+                    @Model.albums.items[i].name
+                </td>
+            </tr>
+        }
+    </table>
 
 
 
 
-                @*@foreach (var item in Model.)
+
+
+
+    @*@foreach (var item in Model.)
         {
             if (item.format != null)
             {
@@ -47,7 +48,7 @@
                 }
             }
         }*@
-            </tbody>
-        </table>
-    </div>
+    
+    
+</div>
 
