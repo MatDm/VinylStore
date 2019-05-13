@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
 using VinylStore.Auth;
 using VinylStore.Concrete;
+using VinylStore.JsonModels;
 using VinylStore.Models;
 using VinylStore.Services;
 using VinylStore.ViewModels;
@@ -48,31 +50,53 @@ namespace VinylStore.Controllers
                 shortModel.ImageUrl = vinyl.ImageUrl;
                 shortModel.AlbumName = vinyl.AlbumName;
                 shortModel.ArtistName = vinyl.ArtistName ?? "";
+                shortModel.VinylId = vinyl.Id;
                 
                 vinylShortViewModelList.Add(shortModel);
             }
             return View(vinylShortViewModelList);
         }
         
-        public async Task<IActionResult> AddToUserCollection(string albumName, string genre, string imageUrl, string releaseYear, string format)
-        {            
-            // Check si format est vinyl??
-            // Je crée un objet à partir des informations que je récupère
-            var vinyl = new Vinyl() { AlbumName = albumName, Genre = genre, ImageUrl = imageUrl, ReleaseYear = releaseYear};
-            // Je l'ajoute à la base de donnée Vinyl
-            _vinylRepo.Insert(vinyl);
-            // J'ajoute la référence(maintenant crée) entre l'utilisateur qui le rajoute à sa collection 
-            // donc entre UserId et l'Id du Vinyl
-            var currentUser = await _userManager.GetUserAsync(User);
-            var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = true };
-            _userVinylRepo.Insert(userVinyl);
-
-            //return View("AddToUserCollectionForm", vinyl);
-
-            //je redirige l'utilisateur vers sa collection (MISE a jour)
-            return RedirectToAction("DisplayMyCollection");             
+        public async Task<IActionResult> AddToUserCollection(string spotifyAlbumId)
+        {
+            //requete par id de l'album pour avoir les données complètes à sauver dans la table
+            string queryString = "https://api.spotify.com/v1/albums/" + spotifyAlbumId;
+            
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _userService.RefreshToken());
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(queryString);
+                var output = await client.SendAsync(request);
+                //tester statuscode
+                var result = await output.Content.ReadAsAsync<AlbumIdSearchResultJsonModel>();
+                Vinyl vinyl = new Vinyl()
+                {
+                    AlbumName = result.name,
+                    ReleaseYear = result.release_date,
+                    ArtistName = result.artists[0].name,
+                    ImageUrl = result.images[0].url,
+                    Label = result.label,
+                    SpotifyAlbumId = spotifyAlbumId
+                };
+                _vinylRepo.Insert(vinyl);
+                var currentUser = await _userManager.GetUserAsync(User);
+                var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = true };
+                _userVinylRepo.Insert(userVinyl);
+                return RedirectToAction("DisplayMyCollection");
+            }                                       
         }
 
-        
+        public IActionResult Delete(int vinylId)
+        {
+            if(_vinylRepo.Delete(vinylId) == true)
+            {
+                TempData["SuccessMessage"] = "Vinyl deleted";
+                return RedirectToAction("DisplayMyCollection");
+            }
+            TempData["ErrorMessage"] = "Vinyl not deleted, something went wrong";
+            return RedirectToAction("DisplayMyCollection");
+        }
     }
 }

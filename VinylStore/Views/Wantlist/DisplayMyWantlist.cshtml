@@ -1,21 +1,33 @@
 ﻿@model IEnumerable<VinylStore.ViewModels.VinylShortViewModel>
 
-    @{
+@{
     ViewData["Title"] = "My Wantlist";
-    }
+}
+
+<div class="text-white">
+    <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
+    <h1 class="text-white">Your wantlist :</h1>
 
 
-    <div class="text-white">
-        <h1>My Wantlist</h1>
-
-        <p>Your Wantlist :</p>
-
-        @foreach (var vinyl in Model)
+    <table class="table table-striped text-white">
+        @foreach (var item in Model)
         {
-        <p>@vinyl.AlbumName</p>
-        <img src="@vinyl.ImageUrl" alt="l'image n'est pas dispo" height="150" width="150" />
-
+            <tr>
+                <td>
+                    <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
+                </td>
+                <td>
+                    @item.ArtistName
+                </td>
+                <td>
+                    @item.AlbumName
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Wantlist", new { vinylId = item.VinylId }, new { @class = "button button-danger" })
+                </td>
+            </tr>
         }
-    </div>
+    </table>
+</div>
 
 

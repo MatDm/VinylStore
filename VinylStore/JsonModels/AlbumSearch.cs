@@ -7,7 +7,7 @@ namespace VinylStore.Models
 {
 
 
-    public class SearchVinyl2
+    public class AlbumSearchResultJsonModel
     {
         public Albums albums { get; set; }
     }

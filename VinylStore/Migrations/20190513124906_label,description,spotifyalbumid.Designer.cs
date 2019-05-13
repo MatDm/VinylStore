@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinylStore.Concrete;
 
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(VinylStoreDbContext))]
-    partial class VinylStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190513124906_label,description,spotifyalbumid")]
+    partial class labeldescriptionspotifyalbumid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

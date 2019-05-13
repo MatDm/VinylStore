@@ -1,4 +1,4 @@
-﻿@model VinylStore.Models.SearchVinyl2
+﻿@model VinylStore.Models.AlbumSearchResultJsonModel
 
 @{
     ViewData["Title"] = "Search Result";
@@ -15,40 +15,16 @@
                 <td>
                     @Model.albums.items[i].name
                 </td>
+                <td>
+                    <div>
+                        @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @Model.albums.items[i].id })
+                    </div>
+                    <div>
+                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @Model.albums.items[i].id })
+                    </div>
+                </td>
             </tr>
         }
     </table>
-
-
-
-
-
-
-
-    @*@foreach (var item in Model.)
-        {
-            if (item.format != null)
-            {
-                if (item.format.Contains("Vinyl"))
-                {
-                    <tr>
-                        <td><img src="@item.cover_image" alt="Alternate Text" height="150" width="150" /></td>
-                        <td class="text-white"> @item.title</td>
-                        <td>
-                            <div>
-                                @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection",
-                               new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
-                            </div>
-                            <div>
-                                @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist",
-                               new { albumName = item.title, genre = item.genre, imageUrl = item.cover_image, releaseYear = item.year, format = item.format })
-                            </div>
-                        </td>
-                    </tr>
-                }
-            }
-        }*@
-    
-    
 </div>
 

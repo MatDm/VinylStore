@@ -5,19 +5,29 @@
 }
 
 <div class="text-white">
-    <h1>My Collection</h1>
-
-
-
     <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
+    <h1 class="text-white">Your collection :</h1>
 
-    <p>Your collection :</p>
 
-    @foreach (var vinyl in Model)
-    {
-        <p>@vinyl.AlbumName</p>
-        <img src="@vinyl.ImageUrl" alt="l'image n'est pas dispo" height="150" width="150" />
-
-    }
+    <table class="table table-striped text-white">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
+                </td>
+                <td>
+                    @item.ArtistName
+                </td>
+                <td>
+                    @item.AlbumName
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Collection", new { vinylId = item.VinylId }, new { @class="button button-danger" })
+                </td>
+            </tr>
+        }        
+    </table>
+    
 </div>
 

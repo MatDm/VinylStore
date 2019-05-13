@@ -14,5 +14,9 @@ namespace VinylStore.Abstract
 
         void Insert(Vinyl vinyl);
 
+        bool Delete(int vinylId);
+
+
+
     }
 }

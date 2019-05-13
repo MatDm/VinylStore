@@ -14,6 +14,19 @@ namespace VinylStore.Concrete
         {
             _db = db;
         }
+
+        public bool Delete(int vinylId)
+        {
+            var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id == vinylId);
+            
+            _db.Vinyls.Remove(vinyl);
+            if (_db.SaveChanges()> 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public IEnumerable<Vinyl> Get()
         {
             return _db.Vinyls;
