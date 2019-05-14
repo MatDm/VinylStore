@@ -34,15 +34,16 @@ namespace VinylStore.Controllers
             return View(vinylShortViewModels);
         }
 
-        public IActionResult Details(int id)
+        //affiche les details d'un vinyl
+        public IActionResult Details(string id)
         {
-            var vinyl = _vinylRepository.GetById(id.ToString());
+            var vinyl = _vinylRepository.GetById(id);
             var vinylViewModel = new VinylViewModel()
             {
                 ImageUrl = vinyl.ImageUrl,
                 AlbumName = vinyl.AlbumName,
                 ArtistName = vinyl.ArtistName,
-                Genre = vinyl.Genre,
+                Genres = vinyl.Genres,
                 ReleaseYear = vinyl.ReleaseYear,
                 Price = vinyl.Price,
                 TrackList = vinyl.TrackList

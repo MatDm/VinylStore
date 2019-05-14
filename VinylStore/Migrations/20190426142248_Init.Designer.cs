@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinylStore.Abstract;
-using VinylStore.Concrete;
+using VinylStore.Abstract;
 
 namespace VinylStore.Migrations
 {

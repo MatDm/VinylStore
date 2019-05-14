@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SpotifyWebAPI;
 using VinylStore.Models;
-using VinylStore.Services;
+using VinylStore.Abstract;
 
 namespace VinylStore.Controllers
 {

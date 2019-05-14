@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VinylStore.Models
 {
-    public class AccessToken
+    public class AccessTokenJsonModel
     {
         public string access_token { get; set; }
         public string token_type { get; set; }

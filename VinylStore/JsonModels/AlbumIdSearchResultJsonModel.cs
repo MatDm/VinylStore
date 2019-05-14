@@ -42,7 +42,7 @@ namespace VinylStore.JsonModels
     public class Tracks
     {
         public string href { get; set; }
-        public Item[] items { get; set; }
+        public ArtistItem[] items { get; set; }
         public int limit { get; set; }
         public object next { get; set; }
         public int offset { get; set; }
@@ -50,7 +50,7 @@ namespace VinylStore.JsonModels
         public int total { get; set; }
     }
 
-    public class Item
+    public class ArtistItem
     {
         public Artist[] artists { get; set; }
         public string[] available_markets { get; set; }

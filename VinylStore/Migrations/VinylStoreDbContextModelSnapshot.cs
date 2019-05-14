@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VinylStore.Concrete;
+using VinylStore.Abstract;
 
 namespace VinylStore.Migrations
 {
@@ -186,22 +186,6 @@ namespace VinylStore.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("VinylStore.Models.UserVinyl", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsPossessed");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("VinylId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserVinyls");
-                });
-
             modelBuilder.Entity("VinylStore.Models.Vinyl", b =>
                 {
                     b.Property<int>("Id")
@@ -214,8 +198,6 @@ namespace VinylStore.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Genre");
-
                     b.Property<string>("ImageUrl");
 
                     b.Property<string>("Label");
@@ -227,12 +209,43 @@ namespace VinylStore.Migrations
 
                     b.Property<string>("SpotifyAlbumId");
 
+                    b.Property<string>("_genres")
+                        .HasColumnName("Genres");
+
                     b.Property<string>("_trackList")
                         .HasColumnName("TrackList");
 
                     b.HasKey("Id");
 
                     b.ToTable("Vinyls");
+                });
+
+            modelBuilder.Entity("VinylStore.Models.VinylForSale", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("VinylId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
+                });
+
+            modelBuilder.Entity("VinylStore.Models.Wantlist", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("VinylId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wantlists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

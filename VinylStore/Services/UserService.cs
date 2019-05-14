@@ -4,32 +4,30 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using VinylStore.Abstract;
-using VinylStore.Concrete;
 using VinylStore.Models;
 
-namespace VinylStore.Services
+namespace VinylStore.Abstract
 {
     public class UserService : IUserService
     {
-        private readonly IUserVinylRepository _userVinylRepo;
+        private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly IVinylRepository _vinylRepo;
 
-        public UserService(IUserVinylRepository userVinylRepo, IVinylRepository vinylRepo)
+        public UserService(Func<string, IListRepository> listRepositoryAccessor, IVinylRepository vinylRepo)
         {
-            _userVinylRepo = userVinylRepo;
+            _listRepositoryAccessor = listRepositoryAccessor;
             _vinylRepo = vinylRepo;
         }
         public List<Vinyl> GetMyCollection(string userId)
         {
-
-            var userVinylTable = _userVinylRepo.GetAll();
-            var userVinylList = userVinylTable.Where(u => u.UserId == userId && u.IsPossessed == true).ToList();
+            var vinylForSaleTable = _listRepositoryAccessor("VinylForSale").GetAllVinylsForSale();          
+            var collectionList = vinylForSaleTable.Where(u => u.UserId == userId).ToList();
             var vinylList = new List<Vinyl>();
 
-            foreach (var userVinyl in userVinylList)
+            foreach (var collection in collectionList)
             {
 
-                Vinyl vinyl = _vinylRepo.GetById(userVinyl.VinylId.ToString());
+                Vinyl vinyl = _vinylRepo.GetById(collection.VinylId.ToString());
                 if (vinyl != null)
                 {
                     vinylList.Add(vinyl);
@@ -41,8 +39,8 @@ namespace VinylStore.Services
 
         public List<Vinyl> GetMyWantlist(string userId)
         {
-            var userVinylTable = _userVinylRepo.GetAll();
-            var userVinylList = userVinylTable.Where(u => u.UserId == userId && u.IsPossessed == false).ToList();
+            var wantlistTable = _listRepositoryAccessor("Wantlist").GetAllWantlists();
+            var userVinylList = wantlistTable.Where(u => u.UserId == userId).ToList();
             var vinylList = new List<Vinyl>();
 
             foreach (var userVinyl in userVinylList)
@@ -66,7 +64,7 @@ namespace VinylStore.Services
                 request.Method = HttpMethod.Post;
                 request.RequestUri = new Uri(urlToken);
                 var result = await client.SendAsync(request);
-                var accessTokenObject = await result.Content.ReadAsAsync<AccessToken>();
+                var accessTokenObject = await result.Content.ReadAsAsync<AccessTokenJsonModel>();
                 return accessTokenObject.access_token;
             }
         }

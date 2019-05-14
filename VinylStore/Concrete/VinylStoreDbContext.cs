@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using VinylStore.Auth;
 using VinylStore.Models;
 
-namespace VinylStore.Concrete
+namespace VinylStore.Abstract
 {
     public class VinylStoreDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -19,7 +19,9 @@ namespace VinylStore.Concrete
         }
         public DbSet<Vinyl> Vinyls { get; set; }
 
-        public DbSet<UserVinyl> UserVinyls { get; set; }
+        public DbSet<VinylForSale> Collections { get; set; }
+
+        public DbSet<Wantlist> Wantlists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -14,9 +14,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VinylStore.Abstract;
 using VinylStore.Auth;
-using VinylStore.Concrete;
+using VinylStore.Abstract;
 using VinylStore.Models;
-using VinylStore.Services;
+using VinylStore.Abstract;
 
 namespace VinylStore
 {
@@ -62,11 +62,22 @@ namespace VinylStore
             services.AddScoped<IRepository<Vinyl>, Repository<Vinyl>>();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserVinylRepository, UserVinylRepository>();
+            services.AddScoped<VinylForSaleRepository>();
+            services.AddScoped<WantlistRepository>();
+            services.AddScoped<ISpotifyService, SpotifyService>();
 
-
-
-
+            services.AddTransient<Func<string, IListRepository>>(serviceProvider => key =>
+            {
+                switch (key)
+                {
+                    case "VinylForSale":
+                        return serviceProvider.GetService<VinylForSaleRepository>();
+                    case "Wantlist":
+                        return serviceProvider.GetService<WantlistRepository>();
+                    default:
+                        throw new KeyNotFoundException(); // or maybe return null
+                }
+            });
 
 
         }

@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
 using VinylStore.Auth;
-using VinylStore.Concrete;
+using VinylStore.Abstract;
 using VinylStore.JsonModels;
 using VinylStore.Models;
-using VinylStore.Services;
+using VinylStore.Abstract;
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
@@ -22,14 +22,14 @@ namespace VinylStore.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IVinylRepository _vinylRepo;
-        private readonly IUserVinylRepository _userVinylRepo;
+        private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly IUserService _userService;
 
-        public WantlistController(UserManager<ApplicationUser> userManager, IVinylRepository vinylRepo, IUserVinylRepository userVinylRepo, IUserService userService)
+        public WantlistController(UserManager<ApplicationUser> userManager, IVinylRepository vinylRepo, Func<string, IListRepository> listRepositoryAccessor, IUserService userService)
         {
             _userManager = userManager;
             _vinylRepo = vinylRepo;
-            _userVinylRepo = userVinylRepo;
+            _listRepositoryAccessor = listRepositoryAccessor;
             _userService = userService;
         }
 
@@ -63,22 +63,45 @@ namespace VinylStore.Controllers
                 request.Method = HttpMethod.Get;
                 request.RequestUri = new Uri(queryString);
                 var output = await client.SendAsync(request);
-                //tester statuscode
+
+                //on récupère le json de spotify
                 var result = await output.Content.ReadAsAsync<AlbumIdSearchResultJsonModel>();
-                Vinyl vinyl = new Vinyl()
+
+                //on vérifie si c'est pas vide
+                if (result != null)
                 {
-                    AlbumName = result.name,
-                    ReleaseYear = result.release_date,
-                    ArtistName = result.artists[0].name,
-                    ImageUrl = result.images[0].url,
-                    Label = result.label,
-                    SpotifyAlbumId = spotifyAlbumId
-                };
-                _vinylRepo.Insert(vinyl);
-                var currentUser = await _userManager.GetUserAsync(User);
-                var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = false };
-                _userVinylRepo.Insert(userVinyl);
-                return RedirectToAction("DisplayMyCollection");
+                    Vinyl vinyl = new Vinyl()
+                    {
+                        AlbumName = result.name,
+                        ReleaseYear = result.release_date,
+                        ArtistName = result.artists[0].name,
+                        ImageUrl = result.images[0].url,
+                        Label = result.label,
+                        SpotifyAlbumId = spotifyAlbumId
+                    };
+
+                    //on insère le vinyl dans la db
+                    _vinylRepo.Insert(vinyl);
+
+                    //on met à jour la wantlist du user
+                    var currentUser = await _userManager.GetUserAsync(User);
+                    var wantlist = new Wantlist()
+                    {
+                        UserId = currentUser.Id,
+                        VinylId = vinyl.Id
+                    };
+
+                    //on insère dans la db
+                    _listRepositoryAccessor("Wantlist").Insert(wantlist);
+
+                    //succès et redirection vers la collection mise à jour
+                    TempData["SuccessMessage"] = "Vinyl added successfully";
+                    return RedirectToAction("DisplayMyWantlist");
+                }
+
+                //échec et redirection vers la collection non mise à jour
+                TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
+                return RedirectToAction("DisplayMyWantlist");
             }
         }
         public IActionResult Delete(int vinylId)

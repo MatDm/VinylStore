@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using VinylStore.Models;
 
-namespace VinylStore.Services
+namespace VinylStore.Abstract
 {
     public interface IUserService
     {

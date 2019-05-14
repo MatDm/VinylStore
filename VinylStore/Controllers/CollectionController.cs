@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
 using VinylStore.Auth;
-using VinylStore.Concrete;
+using VinylStore.Abstract;
 using VinylStore.JsonModels;
 using VinylStore.Models;
-using VinylStore.Services;
+using VinylStore.Abstract;
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
@@ -20,23 +20,27 @@ namespace VinylStore.Controllers
     [Authorize]
     public class CollectionController : Controller
     {
-        private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
-        private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
+        //private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
+        //private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
+        //private readonly ICollectionRepository _userVinylRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
-        private readonly IVinylRepository _vinylRepo;
-        private readonly IUserVinylRepository _userVinylRepo;
+        private readonly IVinylRepository _vinylRepo;        
+        private readonly Func<string, IListRepository> _listRepositoryAccessor;
+        private readonly ISpotifyService _spotifyService;
 
-        public CollectionController(UserManager<ApplicationUser> userManager, IUserService userService, IVinylRepository vinylRepo, IUserVinylRepository userVinylRepo)
+        public CollectionController(UserManager<ApplicationUser> userManager, IUserService userService, 
+            IVinylRepository vinylRepo, Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
         {
             _userManager = userManager;
             _userService = userService;            
-            _vinylRepo = vinylRepo;
-            _userVinylRepo = userVinylRepo;
+            _vinylRepo = vinylRepo;            
+            _listRepositoryAccessor = listRepositoryAccessor;
+            _spotifyService = spotifyService;
         }
 
         public async Task<IActionResult> DisplayMyCollection()
-        {
+        {           
             var currentUser = await _userManager.GetUserAsync(User);
             ViewBag.UserId = currentUser.Id;
             ViewBag.UserName = currentUser.UserName;
@@ -59,8 +63,8 @@ namespace VinylStore.Controllers
         
         public async Task<IActionResult> AddToUserCollection(string spotifyAlbumId)
         {
-            //requete par id de l'album pour avoir les données complètes à sauver dans la table
-            string queryString = "https://api.spotify.com/v1/albums/" + spotifyAlbumId;
+            //2eme requete par id de l'album pour avoir les données complètes à sauver dans la table
+            string queryString = "https://api.spotify.com/v1/albums/" + spotifyAlbumId;  
             
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
@@ -69,21 +73,48 @@ namespace VinylStore.Controllers
                 request.Method = HttpMethod.Get;
                 request.RequestUri = new Uri(queryString);
                 var output = await client.SendAsync(request);
-                //tester statuscode
+                
+                //on récupère le json de spotify
                 var result = await output.Content.ReadAsAsync<AlbumIdSearchResultJsonModel>();
-                Vinyl vinyl = new Vinyl()
+
+                //on vérifie si c'est pas vide
+                if (result != null)
                 {
-                    AlbumName = result.name,
-                    ReleaseYear = result.release_date,
-                    ArtistName = result.artists[0].name,
-                    ImageUrl = result.images[0].url,
-                    Label = result.label,
-                    SpotifyAlbumId = spotifyAlbumId
-                };
-                _vinylRepo.Insert(vinyl);
-                var currentUser = await _userManager.GetUserAsync(User);
-                var userVinyl = new UserVinyl() { UserId = currentUser.Id, VinylId = vinyl.Id, IsPossessed = true };
-                _userVinylRepo.Insert(userVinyl);
+                    Vinyl vinyl = new Vinyl()
+                    {
+                        AlbumName = result.name,
+                        ReleaseYear = result.release_date,
+                        ArtistName = result.artists[0].name,
+                        ImageUrl = result.images[0].url,
+                        Label = result.label,
+                        SpotifyAlbumId = spotifyAlbumId,
+                        //todo : recupérer les tracks via methode
+                        TrackList = _spotifyService.GetTracks(result),
+                        Genres = await _spotifyService.GetGenres(result),
+                        
+                    };
+
+                    //on insère le vinyl dans la db 
+                    _vinylRepo.Insert(vinyl);
+
+                    //on met à jour la collection du user
+                    var currentUser = await _userManager.GetUserAsync(User);
+                    var vinylForSale = new VinylForSale()
+                    {
+                        UserId = currentUser.Id,
+                        VinylId = vinyl.Id
+                    };
+
+                    //on insère dans la db
+                    _listRepositoryAccessor("VinylForSale").Insert(vinylForSale);
+
+                    //succès et redirection vers la collection mise à jour
+                    TempData["SuccessMessage"] = "Vinyl added successfully";
+                    return RedirectToAction("DisplayMyCollection");
+                }
+
+                //échec et redirection vers la collection non mise à jour
+                TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
                 return RedirectToAction("DisplayMyCollection");
             }                                       
         }

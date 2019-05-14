@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VinylStore.Abstract;
 
-namespace VinylStore.Concrete
+namespace VinylStore.Abstract
 {
     public class Repository<T> : IRepository<T> where T : class
     {

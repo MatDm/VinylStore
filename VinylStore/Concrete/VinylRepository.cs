@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using VinylStore.Abstract;
 using VinylStore.Models;
 
-namespace VinylStore.Concrete
+namespace VinylStore.Abstract
 {
     public class VinylRepository : IVinylRepository
     {
