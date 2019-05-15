@@ -15,9 +15,9 @@ namespace VinylStore.Abstract
             _db = db;
         }
 
-        public bool Delete(int vinylId)
+        public bool Delete(string vinylId)
         {
-            var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id == vinylId);
+            var vinyl = _db.Vinyls.FirstOrDefault(v => v.Id.ToString() == vinylId);
             
             _db.Vinyls.Remove(vinyl);
             if (_db.SaveChanges()> 0)

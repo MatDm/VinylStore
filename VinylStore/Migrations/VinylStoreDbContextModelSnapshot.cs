@@ -188,9 +188,8 @@ namespace VinylStore.Migrations
 
             modelBuilder.Entity("VinylStore.Models.Vinyl", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AlbumName");
 
@@ -227,7 +226,7 @@ namespace VinylStore.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<int>("VinylId");
+                    b.Property<string>("VinylId");
 
                     b.HasKey("Id");
 
@@ -241,7 +240,7 @@ namespace VinylStore.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<int>("VinylId");
+                    b.Property<string>("VinylId");
 
                     b.HasKey("Id");
 

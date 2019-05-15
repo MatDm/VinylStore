@@ -9,10 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
 using VinylStore.Auth;
-using VinylStore.Abstract;
 using VinylStore.JsonModels;
 using VinylStore.Models;
-using VinylStore.Abstract;
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
@@ -90,7 +88,7 @@ namespace VinylStore.Controllers
                         SpotifyAlbumId = spotifyAlbumId,
                         //todo : recupérer les tracks via methode
                         TrackList = _spotifyService.GetTracks(result),
-                        Genres = await _spotifyService.GetGenres(result),
+                        Genres = await _spotifyService.GetGenres(result)
                         
                     };
 
@@ -119,9 +117,9 @@ namespace VinylStore.Controllers
             }                                       
         }
 
-        public IActionResult Delete(int vinylId)
+        public IActionResult Delete(string vinylId)
         {
-            if(_vinylRepo.Delete(vinylId) == true)
+            if(_listRepositoryAccessor("VinylForSale").Delete(vinylId) == true)
             {
                 TempData["SuccessMessage"] = "Vinyl deleted";
                 return RedirectToAction("DisplayMyCollection");

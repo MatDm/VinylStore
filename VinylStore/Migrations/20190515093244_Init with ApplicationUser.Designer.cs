@@ -10,8 +10,8 @@ using VinylStore.Abstract;
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(VinylStoreDbContext))]
-    [Migration("20190508103510_prop IsPossessed")]
-    partial class propIsPossessed
+    [Migration("20190515093244_Init with ApplicationUser")]
+    partial class InitwithApplicationUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,49 +186,6 @@ namespace VinylStore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("VinylStore.Models.UserVinyl", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsPossessed");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("VinylId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserVinyls");
-                });
-
-            modelBuilder.Entity("VinylStore.Models.Vinyl", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AlbumName");
-
-                    b.Property<string>("ArtistName");
-
-                    b.Property<string>("Genre");
-
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReleaseYear");
-
-                    b.Property<string>("_trackList")
-                        .HasColumnName("TrackList");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vinyls");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

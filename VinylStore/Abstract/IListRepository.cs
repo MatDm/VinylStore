@@ -12,5 +12,7 @@ namespace VinylStore.Abstract
         IEnumerable<VinylForSale> GetAllVinylsForSale();
         void Insert(Wantlist wantlist);
         void Insert(VinylForSale vinylForSale);
+
+        bool Delete(string vinylId);
     }
 }

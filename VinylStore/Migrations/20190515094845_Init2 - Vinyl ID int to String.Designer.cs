@@ -10,8 +10,8 @@ using VinylStore.Abstract;
 namespace VinylStore.Migrations
 {
     [DbContext(typeof(VinylStoreDbContext))]
-    [Migration("20190506145340_vinylId is an int")]
-    partial class vinylIdisanint
+    [Migration("20190515094845_Init2 - Vinyl ID int to String")]
+    partial class Init2VinylIDinttoString
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,38 +188,30 @@ namespace VinylStore.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("VinylStore.Models.UserVinyl", b =>
+            modelBuilder.Entity("VinylStore.Models.Vinyl", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("VinylId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserVinyls");
-                });
-
-            modelBuilder.Entity("VinylStore.Models.Vinyl", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AlbumName");
 
                     b.Property<string>("ArtistName");
 
-                    b.Property<string>("Genre");
+                    b.Property<string>("Description");
 
                     b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Label");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ReleaseYear");
+
+                    b.Property<string>("SpotifyAlbumId");
+
+                    b.Property<string>("_genres")
+                        .HasColumnName("Genres");
 
                     b.Property<string>("_trackList")
                         .HasColumnName("TrackList");
@@ -227,6 +219,34 @@ namespace VinylStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vinyls");
+                });
+
+            modelBuilder.Entity("VinylStore.Models.VinylForSale", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("VinylId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
+                });
+
+            modelBuilder.Entity("VinylStore.Models.Wantlist", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("VinylId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wantlists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

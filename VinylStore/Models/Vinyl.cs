@@ -12,11 +12,12 @@ namespace VinylStore.Models
         public string _trackList { get; set; }
         [Column("Genres")]
         public string _genres { get; set; }
-        private static readonly char delimiter = ';';
-        public int Id { get; set; }
+        private static readonly char trackDelimiter = ';';
+        private static readonly char genreDelimiter = '/';
+
+        public string Id { get; set; }
         public string AlbumName { get; set; }
-        public string ArtistName { get; set; }
-        
+        public string ArtistName { get; set; }       
         public string ReleaseYear { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
@@ -25,19 +26,19 @@ namespace VinylStore.Models
         [NotMapped]
         public string[] TrackList
         {
-            get { return _trackList.Split(delimiter); }
+            get { return _trackList.Split(trackDelimiter); }
             set
             {
-                _trackList = string.Join($"{delimiter}", value);
+                _trackList = string.Join($"{trackDelimiter}", value);
             }
         }
         [NotMapped]
         public string[] Genres
         {
-            get { return _genres.Split(delimiter); }
+            get { return _genres.Split(genreDelimiter); }
             set
             {
-                _genres = string.Join($"{delimiter}", value);
+                _genres = string.Join($"{genreDelimiter}", value);
             }
         }
         [Column(TypeName = "decimal(18,2)")]

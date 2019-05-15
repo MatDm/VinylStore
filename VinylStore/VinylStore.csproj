@@ -8,10 +8,7 @@
   <ItemGroup>
     <Compile Remove="Abstract\ICollectionRepository.cs" />
     <Compile Remove="Abstract\IWantlistRepository.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Migrations\20190513104609_vinyl props added " />
+    <Compile Remove="Controllers\Class.cs" />
   </ItemGroup>
 
 

@@ -26,8 +26,20 @@ namespace VinylStore.Abstract
             _db.SaveChanges();
         }
 
+        public bool Delete(string vinylId)
+        {
+            var vinyl = _db.Wantlists.FirstOrDefault(v => v.Id.ToString() == vinylId);
 
-        //------------------------------------------------
+            _db.Wantlists.Remove(vinyl);
+            if (_db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        //---------------------NOT USED---------------------------
 
         public void Insert(VinylForSale wantlist)
         {
@@ -39,5 +51,7 @@ namespace VinylStore.Abstract
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

@@ -9,7 +9,7 @@ namespace VinylStore.Models
     {
         public string Id { get; set; }
         public string UserId { get; set; }
-        public int VinylId { get; set; }
+        public string VinylId { get; set; }
         //public bool IsPossessed { get; set; }
 
     }

@@ -10,6 +10,6 @@ namespace VinylStore.ViewModels
         public string ImageUrl { get; set; }
         public string AlbumName { get; set; }
         public string ArtistName { get; set; }
-        public int VinylId { get; set; }
+        public string VinylId { get; set; }
     }
 }

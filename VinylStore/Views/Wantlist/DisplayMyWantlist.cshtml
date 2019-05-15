@@ -23,7 +23,12 @@
                     @item.AlbumName
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "Wantlist", new { vinylId = item.VinylId }, new { @class = "button button-danger" })
+                    <div>
+                        @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.VinylId }, new { @class = "button button-primary" })
+                    </div>
+                    <div>
+                        @Html.ActionLink("Delete", "Delete", "Wantlist", new { vinylId = item.VinylId }, new { @class = "button button-danger" })
+                    </div>
                 </td>
             </tr>
         }

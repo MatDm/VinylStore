@@ -24,13 +24,16 @@ namespace VinylStore.Controllers
         private readonly IVinylRepository _vinylRepo;
         private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly IUserService _userService;
+        private readonly ISpotifyService _spotifyService;
 
-        public WantlistController(UserManager<ApplicationUser> userManager, IVinylRepository vinylRepo, Func<string, IListRepository> listRepositoryAccessor, IUserService userService)
+        public WantlistController(UserManager<ApplicationUser> userManager, IVinylRepository vinylRepo, 
+            Func<string, IListRepository> listRepositoryAccessor, IUserService userService, ISpotifyService spotifyService)
         {
             _userManager = userManager;
             _vinylRepo = vinylRepo;
             _listRepositoryAccessor = listRepositoryAccessor;
             _userService = userService;
+            _spotifyService = spotifyService;
         }
 
         public async Task<IActionResult> DisplayMyWantlist()
@@ -46,6 +49,7 @@ namespace VinylStore.Controllers
                 shortModel.ImageUrl = vinyl.ImageUrl;
                 shortModel.AlbumName = vinyl.AlbumName;
                 shortModel.ArtistName = vinyl.ArtistName ?? "";
+                shortModel.VinylId = vinyl.Id;
 
                 vinylShortViewModelList.Add(shortModel);
             }
@@ -77,7 +81,10 @@ namespace VinylStore.Controllers
                         ArtistName = result.artists[0].name,
                         ImageUrl = result.images[0].url,
                         Label = result.label,
-                        SpotifyAlbumId = spotifyAlbumId
+                        SpotifyAlbumId = spotifyAlbumId,
+                        //todo : recupérer les tracks via methode
+                        TrackList = _spotifyService.GetTracks(result),
+                        Genres = await _spotifyService.GetGenres(result)
                     };
 
                     //on insère le vinyl dans la db
@@ -104,9 +111,9 @@ namespace VinylStore.Controllers
                 return RedirectToAction("DisplayMyWantlist");
             }
         }
-        public IActionResult Delete(int vinylId)
+        public IActionResult Delete(string vinylId)
         {
-            if (_vinylRepo.Delete(vinylId) == true)
+            if (_listRepositoryAccessor("Wantlist").Delete(vinylId) == true)
             {
                 TempData["SuccessMessage"] = "Vinyl deleted";
                 return RedirectToAction("DisplayMyCollection");
