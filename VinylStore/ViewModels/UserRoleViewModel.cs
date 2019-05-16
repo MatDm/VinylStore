@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VinylStore.Auth;
+using VinylStore.Common.Auth;
 
 namespace VinylStore.ViewModels
 {

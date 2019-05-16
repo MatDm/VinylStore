@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VinylStore.Common\VinylStore.Common.csproj" />
+    <ProjectReference Include="..\VinylStore.DAL\VinylStore.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\" />
+  </ItemGroup>
+
+</Project>

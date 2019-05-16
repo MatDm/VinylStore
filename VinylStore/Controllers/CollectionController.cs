@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
-using VinylStore.Auth;
-using VinylStore.JsonModels;
+using VinylStore.Common.Auth;
+using VinylStore.Common.Contracts;
+using VinylStore.Common.MTO;
+using VinylStore.DAL.ExternalServices;
+using VinylStore.DAL.ExternalServices.JsonModels;
 using VinylStore.Models;
 using VinylStore.ViewModels;
 
@@ -45,14 +48,14 @@ namespace VinylStore.Controllers
 
             var vinylCollection = _userService.GetMyCollection(currentUser.Id);             
             var vinylShortViewModelList = new List<VinylShortViewModel>();
-            foreach (var vinyl in vinylCollection)
+            foreach (var vinylMTO in vinylCollection)
             {
                 var shortModel = new VinylShortViewModel();
 
-                shortModel.ImageUrl = vinyl.ImageUrl;
-                shortModel.AlbumName = vinyl.AlbumName;
-                shortModel.ArtistName = vinyl.ArtistName ?? "";
-                shortModel.VinylId = vinyl.Id;
+                shortModel.ImageUrl = vinylMTO.ImageUrl;
+                shortModel.AlbumName = vinylMTO.AlbumName;
+                shortModel.ArtistName = vinylMTO.ArtistName ?? "";
+                shortModel.VinylId = vinylMTO.Id;
                 
                 vinylShortViewModelList.Add(shortModel);
             }
@@ -67,7 +70,7 @@ namespace VinylStore.Controllers
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _userService.RefreshToken());
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _spotifyService.RefreshToken());
                 request.Method = HttpMethod.Get;
                 request.RequestUri = new Uri(queryString);
                 var output = await client.SendAsync(request);
@@ -78,7 +81,7 @@ namespace VinylStore.Controllers
                 //on vérifie si c'est pas vide
                 if (result != null)
                 {
-                    Vinyl vinyl = new Vinyl()
+                    VinylMTO vinyl = new VinylMTO()
                     {
                         AlbumName = result.name,
                         ReleaseYear = result.release_date,
@@ -92,12 +95,12 @@ namespace VinylStore.Controllers
                         
                     };
 
-                    //on insère le vinyl dans la db 
+                    //on insère le VinylMTO dans la db 
                     _vinylRepo.Insert(vinyl);
 
                     //on met à jour la collection du user
                     var currentUser = await _userManager.GetUserAsync(User);
-                    var vinylForSale = new VinylForSale()
+                    var vinylForSale = new VinylForSaleMTO()
                     {
                         UserId = currentUser.Id,
                         VinylId = vinyl.Id

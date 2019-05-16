@@ -11,6 +11,14 @@
     <Compile Remove="Controllers\Class.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Collection\AddToUserCollection.cshtml_BCK" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Collection\AddToUserCollection.cshtml_BCK" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -22,7 +30,14 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SpotifyWebAPIMathieu\SpotifyWebAPIMathieu.csproj" />
+    <ProjectReference Include="..\VinylStore.BLL\VinylStore.BLL.csproj" />
+    <ProjectReference Include="..\VinylStore.Common\VinylStore.Common.csproj" />
+    <ProjectReference Include="..\VinylStore.DAL\VinylStore.DAL.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Concrete\" />
   </ItemGroup>
 
 </Project>

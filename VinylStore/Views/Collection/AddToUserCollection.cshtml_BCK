@@ -1,0 +1,15 @@
+﻿@*@model SearchVinyl
+@{
+    ViewData["Title"] = "AddToUserCollection";
+}
+
+    <div class="text-white">
+        <h1>AddToUserCollection</h1>
+
+        <p>@Model.results[0].title</p>
+        <img src="@Model.results[0].cover_image" alt="Alternate Text" />
+    </div>*@
+
+ 
+
+

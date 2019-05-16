@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
+using VinylStore.Common.Contracts;
 using VinylStore.Models;
 using VinylStore.ViewModels;
 
@@ -19,9 +20,9 @@ namespace VinylStore.Controllers
         }
         public ViewResult Index()
         {
-            var vinyls = _vinylRepository.Get();
+            var vinylMTO = _vinylRepository.Get();
             var vinylShortViewModels = new List<VinylShortViewModel>();
-            foreach (var vinyl in vinyls)
+            foreach (var vinyl in vinylMTO)
             {
                 var shortModel = new VinylShortViewModel()
                 {

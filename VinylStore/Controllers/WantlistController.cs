@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
-using VinylStore.Auth;
-using VinylStore.Abstract;
-using VinylStore.JsonModels;
+using VinylStore.Common.Auth;
+using VinylStore.Common.Contracts;
+using VinylStore.Common.MTO;
+using VinylStore.DAL.ExternalServices;
+using VinylStore.DAL.ExternalServices.JsonModels;
 using VinylStore.Models;
-using VinylStore.Abstract;
+
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
@@ -42,20 +44,24 @@ namespace VinylStore.Controllers
 
             var vinylWantlist = _userService.GetMyWantlist(currentUser.Id);
             var vinylShortViewModelList = new List<VinylShortViewModel>();
-            foreach (var vinyl in vinylWantlist)
+            foreach (var vinylMTO in vinylWantlist)
             {
                 var shortModel = new VinylShortViewModel();
 
-                shortModel.ImageUrl = vinyl.ImageUrl;
-                shortModel.AlbumName = vinyl.AlbumName;
-                shortModel.ArtistName = vinyl.ArtistName ?? "";
-                shortModel.VinylId = vinyl.Id;
+                shortModel.ImageUrl = vinylMTO.ImageUrl;
+                shortModel.AlbumName = vinylMTO.AlbumName;
+                shortModel.ArtistName = vinylMTO.ArtistName ?? "";
+                shortModel.VinylId = vinylMTO.Id;
 
                 vinylShortViewModelList.Add(shortModel);
             }
             return View(vinylShortViewModelList);
         }
-        public async Task<IActionResult> AddToUserWantlist(string spotifyAlbumId)
+        //public async Task<IActionResult> AddToUserWantlist(string spotifyAlbumId)
+        //{
+        //    return View(new TempControleurWantlist);
+        //}
+            public async Task<IActionResult> AddToUserWantlist(string spotifyAlbumId)
         {
             //requete par id de l'album pour avoir les données complètes à sauver dans la table
             string queryString = "https://api.spotify.com/v1/albums/" + spotifyAlbumId;
@@ -63,7 +69,7 @@ namespace VinylStore.Controllers
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _userService.RefreshToken());
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _spotifyService.RefreshToken());
                 request.Method = HttpMethod.Get;
                 request.RequestUri = new Uri(queryString);
                 var output = await client.SendAsync(request);
@@ -74,7 +80,7 @@ namespace VinylStore.Controllers
                 //on vérifie si c'est pas vide
                 if (result != null)
                 {
-                    Vinyl vinyl = new Vinyl()
+                    VinylMTO vinyl = new VinylMTO()
                     {
                         AlbumName = result.name,
                         ReleaseYear = result.release_date,
@@ -87,12 +93,12 @@ namespace VinylStore.Controllers
                         Genres = await _spotifyService.GetGenres(result)
                     };
 
-                    //on insère le vinyl dans la db
+                    //on insère le VinylMTO dans la db
                     _vinylRepo.Insert(vinyl);
 
                     //on met à jour la wantlist du user
                     var currentUser = await _userManager.GetUserAsync(User);
-                    var wantlist = new Wantlist()
+                    var wantlist = new WantlistMTO()
                     {
                         UserId = currentUser.Id,
                         VinylId = vinyl.Id
@@ -116,10 +122,10 @@ namespace VinylStore.Controllers
             if (_listRepositoryAccessor("Wantlist").Delete(vinylId) == true)
             {
                 TempData["SuccessMessage"] = "Vinyl deleted";
-                return RedirectToAction("DisplayMyCollection");
+                return RedirectToAction("DisplayMyWantlist");
             }
             TempData["ErrorMessage"] = "Vinyl not deleted, something went wrong";
-            return RedirectToAction("DisplayMyCollection");
+            return RedirectToAction("DisplayMyWantlist");
         }
     }
 }

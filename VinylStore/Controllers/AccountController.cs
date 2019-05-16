@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using VinylStore.Auth;
+using VinylStore.Common.Auth;
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers

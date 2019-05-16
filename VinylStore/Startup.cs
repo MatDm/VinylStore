@@ -13,10 +13,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VinylStore.Abstract;
-using VinylStore.Auth;
-using VinylStore.Abstract;
+using VinylStore.Common.Auth;
+using VinylStore.Common.Contracts;
+using VinylStore.DAL.ExternalServices;
+using VinylStore.DAL.DataAccess;
+
 using VinylStore.Models;
-using VinylStore.Abstract;
+using VinylStore.Common.Auth;
+using VinylStore.Common.MTO;
 
 namespace VinylStore
 {
@@ -59,7 +63,7 @@ namespace VinylStore
             services.AddTransient<IVinylRepository, VinylRepository>();
 
             //services.AddScoped<IRepository<UserVinyl>, Repository<UserVinyl>>();
-            services.AddScoped<IRepository<Vinyl>, Repository<Vinyl>>();
+            //services.AddScoped<IRepository<VinylDTO>, Repository<VinylDTO>>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<VinylForSaleRepository>();

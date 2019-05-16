@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using SpotifyWebAPI;
-using VinylStore.Models;
-using VinylStore.Abstract;
+using VinylStore.Common.Contracts;
+using VinylStore.DAL.ExternalServices;
+using VinylStore.DAL.ExternalServices.JsonModels;
 
 namespace VinylStore.Controllers
 {
     public class DiscogsController : Controller
     {
         private readonly IUserService _userService;
+        private readonly ISpotifyService _spotifyService;
         private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
         private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
 
-        public DiscogsController(IUserService userService)
+        public DiscogsController(IUserService userService, ISpotifyService spotifyService)
         {
             _userService = userService;
+            _spotifyService = spotifyService;
         }
         public IActionResult Search()
         {
@@ -38,7 +37,7 @@ namespace VinylStore.Controllers
         {
             //1ere requete pour rafraichir le token d'accès
 
-            var refreshedToken = await _userService.RefreshToken();
+            var refreshedToken = await _spotifyService.RefreshToken();
 
             string queryString = "https://api.spotify.com/v1/search?q=album:" + query.Replace(" ", "%20");
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
+using VinylStore.Common.Contracts;
 using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
@@ -20,13 +21,13 @@ namespace VinylStore.Controllers
         {
             var vinyls = _vinylRepository.Get();
             var vinylShortViewModels = new List<VinylShortViewModel>();
-            foreach (var vinyl in vinyls)
+            foreach (var vinylMTO in vinyls)
             {
                 var shortModel = new VinylShortViewModel()
                 {
-                    ImageUrl = vinyl.ImageUrl,
-                    AlbumName = vinyl.AlbumName,
-                    ArtistName = vinyl.ArtistName
+                    ImageUrl = vinylMTO.ImageUrl,
+                    AlbumName = vinylMTO.AlbumName,
+                    ArtistName = vinylMTO.ArtistName
                 };
                 vinylShortViewModels.Add(shortModel);
             }
@@ -37,16 +38,16 @@ namespace VinylStore.Controllers
         //affiche les details d'un vinyl
         public IActionResult Details(string id)
         {
-            var vinyl = _vinylRepository.GetById(id);
+            var vinylMTO = _vinylRepository.GetById(id);
             var vinylViewModel = new VinylViewModel()
             {
-                ImageUrl = vinyl.ImageUrl,
-                AlbumName = vinyl.AlbumName,
-                ArtistName = vinyl.ArtistName,
-                Genres = vinyl.Genres,
-                ReleaseYear = vinyl.ReleaseYear,
-                Price = vinyl.Price,
-                TrackList = vinyl.TrackList
+                ImageUrl = vinylMTO.ImageUrl,
+                AlbumName = vinylMTO.AlbumName,
+                ArtistName = vinylMTO.ArtistName,
+                Genres = vinylMTO.Genres,
+                ReleaseYear = vinylMTO.ReleaseYear,
+                Price = vinylMTO.Price,
+                TrackList = vinylMTO.TrackList
             };
             
             return View(vinylViewModel);

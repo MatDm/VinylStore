@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylStore", "VinylStore\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyWebAPIMathieu", "SpotifyWebAPIMathieu\SpotifyWebAPIMathieu.csproj", "{1E5F77BE-6C37-484C-8292-B0D77B65262D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.DAL", "VinylStore.DAL\VinylStore.DAL.csproj", "{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.Common", "VinylStore.Common\VinylStore.Common.csproj", "{3A58033A-E541-4593-BCA0-10316EE7BE31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.BLL", "VinylStore.BLL\VinylStore.BLL.csproj", "{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,9 +24,19 @@ Global
 		{A6462A4C-0B3B-40AE-A203-E427ABF9A2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6462A4C-0B3B-40AE-A203-E427ABF9A2F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E5F77BE-6C37-484C-8292-B0D77B65262D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E5F77BE-6C37-484C-8292-B0D77B65262D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E5F77BE-6C37-484C-8292-B0D77B65262D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E5F77BE-6C37-484C-8292-B0D77B65262D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A58033A-E541-4593-BCA0-10316EE7BE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A58033A-E541-4593-BCA0-10316EE7BE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A58033A-E541-4593-BCA0-10316EE7BE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A58033A-E541-4593-BCA0-10316EE7BE31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
