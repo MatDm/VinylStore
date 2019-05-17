@@ -8,9 +8,10 @@ namespace VinylStore.Common.Contracts
 {
     public interface IListRepository
     {
-        IEnumerable<WantlistMTO> GetAllWantlists();
-        IEnumerable<VinylForSaleMTO> GetAllVinylsForSale();
-        IEnumerable<VinylForSaleMTO> GetVinylsForSaleByUser(string userId);
+        IEnumerable<WantlistMTO> GetAllWantlistMTOs();
+        IEnumerable<VinylForSaleMTO> GetAllVinylForSaleMTOs();
+        //IEnumerable<VinylForSaleMTO> GetVinylForSaleMTOsByUserId(string userId);
+        IEnumerable<WantlistMTO> GetWantlistMTOsByUserId(string userId);
         void Insert(WantlistMTO wantlist);
         void Insert(VinylForSaleMTO vinylForSale);
 

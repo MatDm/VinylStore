@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VinylStore.DAL.Entities
 {
-    [Table("VinylForSale")]
+    [Table("Collections")]
     public class VinylForSaleEF
     {
         public string Id { get; set; }

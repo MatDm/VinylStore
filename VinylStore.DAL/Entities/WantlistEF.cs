@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VinylStore.DAL.Entities
 {
-    [Table("Wantlist")]
+    [Table("Wantlists")]
     public class WantlistEF
     {
         public string Id { get; set; }

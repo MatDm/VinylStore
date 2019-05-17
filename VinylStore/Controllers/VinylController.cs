@@ -19,7 +19,7 @@ namespace VinylStore.Controllers
         }
         public IActionResult List()
         {
-            var vinyls = _vinylRepository.Get();
+            var vinyls = _vinylRepository.GetAllVinylMTOs();
             var vinylShortViewModels = new List<VinylShortViewModel>();
             foreach (var vinylMTO in vinyls)
             {
@@ -38,7 +38,7 @@ namespace VinylStore.Controllers
         //affiche les details d'un vinyl
         public IActionResult Details(string id)
         {
-            var vinylMTO = _vinylRepository.GetById(id);
+            var vinylMTO = _vinylRepository.GetVinylMTOById(id);
             var vinylViewModel = new VinylViewModel()
             {
                 ImageUrl = vinylMTO.ImageUrl,

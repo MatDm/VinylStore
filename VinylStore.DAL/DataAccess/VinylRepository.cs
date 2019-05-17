@@ -18,7 +18,7 @@ namespace VinylStore.DAL.DataAccess
 
         public bool Delete(string vinylId)
         {
-            var vinylMTO = _db.Vinyls.FirstOrDefault(v => v.Id.ToString() == vinylId);
+            var vinylMTO = _db.Vinyls.FirstOrDefault(v => v.Id == vinylId);
             
             _db.Vinyls.Remove(vinylMTO);
             if (_db.SaveChanges()> 0)
@@ -28,16 +28,16 @@ namespace VinylStore.DAL.DataAccess
             return false;
         }
 
-        public IEnumerable<VinylMTO> Get()
+        public IEnumerable<VinylMTO> GetAllVinylMTOs()
         {
-            //todo transfomer VinylMTO en dto
-            return _db.Vinyls.Select(x => x.ToDTO());
+            
+            return _db.Vinyls.Select(x => x.ToMTO());
         }
 
-        public VinylMTO GetById(string id)
+        public VinylMTO GetVinylMTOById(string vinylId)
         {
-            var vinylMTO = _db.Vinyls.FirstOrDefault(v => v.Id.ToString() == id);
-            return vinylMTO.ToDTO();
+            var vinylEF = _db.Vinyls.FirstOrDefault(v => v.Id == vinylId);
+            return vinylEF.ToMTO();
         }
 
         public void Insert(VinylMTO vinyl)
@@ -45,5 +45,13 @@ namespace VinylStore.DAL.DataAccess
             _db.Vinyls.Add(vinyl.ToEntity());
             _db.SaveChanges();
         }
+
+        public IEnumerable<VinylMTO> GetMyCollectionForSaleByUserId(string userId)
+            => _db.Collections.Where(u => u.UserId == userId)
+                                            .Select( x=> _db.Vinyls.FirstOrDefault(v => v.Id == x.VinylId).ToMTO());
+
+        public IEnumerable<VinylMTO> GetMyWantlistByUserId(string userId)
+        => _db.Wantlists.Where(u => u.UserId == userId)
+                                            .Select(x => _db.Vinyls.FirstOrDefault(v => v.Id == x.VinylId).ToMTO());
     }
 }

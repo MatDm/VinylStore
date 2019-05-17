@@ -1,6 +1,6 @@
 ﻿namespace VinylStore.Common.MTO
 {
-    public class AlbumsMTO
+    public class AlbumMTO
     {
         public string href { get; set; }
         public ItemMTO[] items { get; set; }

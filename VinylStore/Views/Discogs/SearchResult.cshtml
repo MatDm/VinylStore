@@ -1,4 +1,4 @@
-﻿@model VinylStore.Common.MTO.AlbumSearchResultJsonMTO
+﻿@model IEnumerable<VinylStore.Common.MTO.VinylMTO>
 
 @{
     ViewData["Title"] = "Search Result";
@@ -6,25 +6,26 @@
 <div class="text-white">
     <h1>Search result</h1>
     <table class="table table-striped text-white">
-        @for (int i = 0; i < Model.albums.items.Length; i++)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    <img src="@Model.albums.items[i].images[0].url" alt="Image not available" height="150" width="150" />
+                    <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
                 </td>
                 <td>
-                    @Model.albums.items[i].name
+                    @item.AlbumName
                 </td>
                 <td>
                     <div>
-                        @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @Model.albums.items[i].id })
+                        @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId })
                     </div>
                     <div>
-                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @Model.albums.items[i].id })
+                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @item.SpotifyAlbumId })
                     </div>
                 </td>
             </tr>
         }
+        
     </table>
 </div>
 

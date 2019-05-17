@@ -8,15 +8,12 @@ namespace VinylStore.Common.Contracts
 {
     public interface IVinylRepository
     {
-        IEnumerable<VinylMTO> Get();
+        IEnumerable<VinylMTO> GetAllVinylMTOs();
         //Vinyl GetById(int id);
-        VinylMTO GetById(string id);
-
+        VinylMTO GetVinylMTOById(string vinylId);
         void Insert(VinylMTO vinyl);
-
         bool Delete(string vinylId);
-
-
-
+        IEnumerable<VinylMTO> GetMyWantlistByUserId(string userId);
+        IEnumerable<VinylMTO> GetMyCollectionForSaleByUserId(string userId);
     }
 }

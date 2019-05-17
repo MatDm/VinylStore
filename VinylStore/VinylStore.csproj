@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Concrete\**" />
+    <Content Remove="Concrete\**" />
+    <EmbeddedResource Remove="Concrete\**" />
+    <None Remove="Concrete\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Abstract\ICollectionRepository.cs" />
     <Compile Remove="Abstract\IWantlistRepository.cs" />
     <Compile Remove="Controllers\Class.cs" />
@@ -33,11 +40,6 @@
     <ProjectReference Include="..\VinylStore.BLL\VinylStore.BLL.csproj" />
     <ProjectReference Include="..\VinylStore.Common\VinylStore.Common.csproj" />
     <ProjectReference Include="..\VinylStore.DAL\VinylStore.DAL.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Concrete\" />
   </ItemGroup>
 
 </Project>

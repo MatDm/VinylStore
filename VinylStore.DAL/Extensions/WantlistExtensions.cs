@@ -8,7 +8,7 @@ namespace VinylStore.DAL.Extensions
 {
     public static class WantlistExtensions
     {
-        public static WantlistMTO ToDTO(this WantlistEF wantlistEntity)
+        public static WantlistMTO ToMTO(this WantlistEF wantlistEntity)
             => new WantlistMTO
             {
                 Id = wantlistEntity.Id,

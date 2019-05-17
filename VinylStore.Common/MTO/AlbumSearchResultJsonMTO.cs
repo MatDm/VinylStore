@@ -7,7 +7,7 @@ namespace VinylStore.Common.MTO
 {
     public class AlbumSearchResultJsonMTO
     { 
-        public AlbumsMTO albums { get; set; }
+        public AlbumMTO albums { get; set; }
     }
 
 }

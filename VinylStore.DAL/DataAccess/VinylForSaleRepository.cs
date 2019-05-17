@@ -18,40 +18,39 @@ namespace VinylStore.DAL.DataAccess
             _db = db;
         }
 
-        public IEnumerable<VinylForSaleMTO> GetAllVinylsForSale()
+        public IEnumerable<VinylForSaleMTO> GetAllVinylForSaleMTOs()
         {
-            return _db.Collections.Select(x=>x.ToDTO());
+            return _db.Collections.Select(x=>x.ToMTO());
         }
 
-        public IEnumerable<VinylForSaleMTO> GetVinylsForSaleByUser(string userId)
-        {
-            // sélectionne les vinyls à vendre en fonction de l'Id d'un utilisateur
-            var vinylsForSaleEF = _db.Collections.Where(u => u.Id == userId);
+        //public IEnumerable<VinylForSaleMTO> GetVinylForSaleMTOsByUserId(string userId)
+        //{
+        //    // sélectionne les vinyls à vendre en fonction de l'Id d'un utilisateur
+        //    var vinylsForSaleEF = _db.Collections.Where(u => u.Id == userId);
 
-            // initialise une nouvelle liste qui sera la valeur retournée
-            List<VinylForSaleMTO> vinylsForSaleMTO = new List<VinylForSaleMTO>();
+        //    // initialise une nouvelle liste qui sera la valeur retournée
+        //    List<VinylForSaleMTO> vinylsForSaleMTO = new List<VinylForSaleMTO>();
 
-            // boucle dans la liste des vinyls à vendre
-            // et les convertit en une liste de MTO
-            foreach (var vinylForSaleEF in vinylsForSaleEF)
-            {
-                vinylsForSaleMTO.Add(vinylForSaleEF.ToMTO());
-            }
+        //    // boucle dans la liste des vinyls à vendre et les convertit en une liste de MTO 
+        //    foreach (var vinylForSaleEF in vinylsForSaleEF)
+        //    {
+        //        vinylsForSaleMTO.Add(vinylForSaleEF.ToMTO());
+        //    }
 
-            return vinylsForSaleMTO;
+        //    return vinylsForSaleMTO;
 
-            //var vinylsMTO = new List<VinylMTO>();
+        //    //var vinylsMTO = new List<VinylMTO>();
 
-            //foreach (var vinylForSale in vinylsForSale)
-            //{                
-            //    VinylMTO vinylMTO = _db.Vinyls.FirstOrDefault(v => v.Id == vinylForSale.VinylId).ToMTO();                
-            //    if (vinylMTO != null)
-            //    {
-            //        vinylsMTO.Add(vinylMTO);
-            //    }
-            //}
-            //return vinylsMTO;
-        }
+        //    //foreach (var vinylForSale in vinylsForSale)
+        //    //{                
+        //    //    VinylMTO vinylMTO = _db.Vinyls.FirstOrDefault(v => v.Id == vinylForSale.VinylId).ToMTO();                
+        //    //    if (vinylMTO != null)
+        //    //    {
+        //    //        vinylsMTO.Add(vinylMTO);
+        //    //    }
+        //    //}
+        //    //return vinylsMTO;
+        //}
 
         public void Insert(VinylForSaleMTO vinylForSaleDTO)
         {
@@ -79,11 +78,14 @@ namespace VinylStore.DAL.DataAccess
             throw new NotImplementedException();
         }
 
-        public IEnumerable<WantlistMTO> GetAllWantlists()
+        public IEnumerable<WantlistMTO> GetAllWantlistMTOs()
         {
             throw new NotImplementedException();
         }
 
-        
+        public IEnumerable<WantlistMTO> GetWantlistMTOsByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

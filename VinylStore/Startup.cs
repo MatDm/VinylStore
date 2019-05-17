@@ -65,7 +65,7 @@ namespace VinylStore
             //services.AddScoped<IRepository<UserVinyl>, Repository<UserVinyl>>();
             //services.AddScoped<IRepository<VinylDTO>, Repository<VinylDTO>>();
 
-            services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IUserService, UserService>();
             services.AddScoped<VinylForSaleRepository>();
             services.AddScoped<WantlistRepository>();
             services.AddScoped<ISpotifyService, SpotifyService>();

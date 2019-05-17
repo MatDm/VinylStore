@@ -17,10 +17,26 @@ namespace VinylStore.DAL.DataAccess
             _db = db;
         }
 
-        public IEnumerable<WantlistMTO> GetAllWantlists()
+        public IEnumerable<WantlistMTO> GetAllWantlistMTOs()
         {
-            return _db.Wantlists.Select(x => x.ToDTO());
-        }               
+            return _db.Wantlists.Select(x => x.ToMTO());
+        }   
+        
+        public IEnumerable<WantlistMTO> GetWantlistMTOsByUserId(string userId)
+        {
+            //sélection de la wantlist par l'id du user
+            var wantlistsEF = _db.Wantlists.Where(w => w.UserId == userId);
+
+            //initialisation de la liste de wantlistMTO qui sera retournée
+            List<WantlistMTO> wantlistMTOs = new List<WantlistMTO>();
+
+            //boucle dans la liste d'entité pour en faire des MTO et les mettre dans la liste de mto
+            foreach (var wantlistEF in wantlistsEF)
+            {
+                wantlistMTOs.Add(wantlistEF.ToMTO());
+            }
+            return wantlistMTOs;
+        }
 
         public void Insert(WantlistMTO wantlist)
         {
@@ -43,17 +59,20 @@ namespace VinylStore.DAL.DataAccess
 
         //---------------------NOT USED---------------------------
 
-        public void Insert(VinylForSaleMTO wantlist)
+        public void Insert(VinylForSaleMTO vinylForSaleMTO)
         {
             throw new NotImplementedException();
         }
 
         
-        public IEnumerable<VinylForSaleMTO> GetAllVinylsForSale()
+        public IEnumerable<VinylForSaleMTO> GetAllVinylForSaleMTOs()
         {
             throw new NotImplementedException();
         }
 
-        
+        public IEnumerable<VinylForSaleMTO> GetVinylForSaleMTOsByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }     
     }
 }

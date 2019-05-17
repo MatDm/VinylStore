@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VinylStore.DAL.Entities
 {
-    [Table("Vinyl")]
+    [Table("Vinyls")]
     public class VinylEF
     {
         [Column("TrackList")]

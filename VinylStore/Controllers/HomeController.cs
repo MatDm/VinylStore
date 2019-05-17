@@ -20,7 +20,7 @@ namespace VinylStore.Controllers
         }
         public ViewResult Index()
         {
-            var vinylMTO = _vinylRepository.Get();
+            var vinylMTO = _vinylRepository.GetAllVinylMTOs();
             var vinylShortViewModels = new List<VinylShortViewModel>();
             foreach (var vinyl in vinylMTO)
             {
