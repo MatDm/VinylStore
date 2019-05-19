@@ -52,7 +52,7 @@ namespace VinylStore.Controllers
             return View(vinylForSaleVM);
         }
 
-        public async Task<IActionResult> AddToUserWantlist(string spotifyAlbumId)
+        public IActionResult AddToUserWantlist(string spotifyAlbumId)
         {
 
             var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
@@ -62,7 +62,7 @@ namespace VinylStore.Controllers
             else
                 TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
 
-                return RedirectToAction("DisplayMyWantlist");
+            return RedirectToAction("DisplayMyWantlist");
         }
 
         public IActionResult Delete(string vinylId)

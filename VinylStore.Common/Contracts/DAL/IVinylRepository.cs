@@ -11,7 +11,7 @@ namespace VinylStore.Common.Contracts
         IEnumerable<VinylMTO> GetAllVinylMTOs();
         //Vinyl GetById(int id);
         VinylMTO GetVinylMTOById(string vinylId);
-        void Insert(VinylMTO vinyl);
+        string Insert(VinylMTO vinyl);
         bool Delete(string vinylId);
         IEnumerable<VinylMTO> GetMyWantlistByUserId(string userId);
         IEnumerable<VinylMTO> GetMyCollectionForSaleByUserId(string userId);

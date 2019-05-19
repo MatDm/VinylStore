@@ -13,7 +13,7 @@ namespace VinylStore.Common.Contracts
         //IEnumerable<VinylForSaleMTO> GetVinylForSaleMTOsByUserId(string userId);
         IEnumerable<WantlistMTO> GetWantlistMTOsByUserId(string userId);
         void Insert(WantlistMTO wantlist);
-        void Insert(VinylForSaleMTO vinylForSale);
+        string Insert(VinylForSaleMTO vinylForSale);
 
         bool Delete(string vinylId);
     }

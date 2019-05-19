@@ -23,13 +23,13 @@ namespace VinylStore.BLL.UseCases
                 if (vinylMTO != null)
                 {
                     //on insère le VinylMTO dans la db 
-                    vinylRepository.Insert(vinylMTO);
+                    var vinylEFid = vinylRepository.Insert(vinylMTO);
 
                     //on met à jour la collection du user
                     var vinylForSale = new VinylForSaleMTO()
                     {
                         UserId = userId,
-                        VinylId = vinylMTO.Id
+                        VinylId = vinylEFid
                     };
 
                     //on insère dans la db
@@ -56,13 +56,13 @@ namespace VinylStore.BLL.UseCases
                 if (vinylMTO != null)
                 {
                     //on insère le VinylMTO dans la db 
-                    vinylRepository.Insert(vinylMTO);
+                    var vinylEFid = vinylRepository.Insert(vinylMTO);
 
                     //on met à jour la collection du user
                     var wantlistMTO = new WantlistMTO()
                     {
                         UserId = userId,
-                        VinylId = vinylMTO.Id
+                        VinylId = vinylEFid
                     };
 
                     //on insère dans la db

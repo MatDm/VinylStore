@@ -13,15 +13,15 @@ namespace VinylStore.DAL.Extensions
             {
                 Id = vinylForSaleEntity.Id,
                 UserId = vinylForSaleEntity.UserId,
-                VinylId = vinylForSaleEntity.VinylId,
+                VinylId = vinylForSaleEntity.VinylId
             };
 
-        public static VinylForSaleEF ToEntity(this VinylForSaleMTO dto)
+        public static VinylForSaleEF ToEntity(this VinylForSaleMTO vinylForSaleMTO)
             => new VinylForSaleEF
             {
-                Id = dto.Id,
-                UserId = dto.UserId,
-                VinylId = dto.VinylId,
+                Id = vinylForSaleMTO.Id,
+                UserId = vinylForSaleMTO.UserId,
+                VinylId = vinylForSaleMTO.VinylId
             };
     }
 }

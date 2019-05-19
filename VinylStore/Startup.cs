@@ -19,7 +19,7 @@ using VinylStore.DAL.ExternalServices;
 using VinylStore.DAL.DataAccess;
 
 using VinylStore.Models;
-using VinylStore.Common.Auth;
+
 using VinylStore.Common.MTO;
 
 namespace VinylStore

@@ -8,22 +8,25 @@
     <table class="table table-striped text-white">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
-                </td>
-                <td>
-                    @item.AlbumName
-                </td>
-                <td>
-                    <div>
-                        @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId })
-                    </div>
-                    <div>
-                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @item.SpotifyAlbumId })
-                    </div>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
+            </td>
+            <td>
+                @item.AlbumName
+            </td>
+            <td>
+                @item.ArtistName
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId })
+                </div>
+                <div>
+                    @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @item.SpotifyAlbumId })
+                </div>
+            </td>
+        </tr>
         }
         
     </table>

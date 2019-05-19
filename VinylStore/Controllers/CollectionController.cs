@@ -47,9 +47,9 @@ namespace VinylStore.Controllers
             return View(vinylForSaleVM);
         }
 
-        public async Task<IActionResult> AddToUserCollection(string spotifyAlbumId)
+        public IActionResult AddToUserCollection(string spotifyAlbumId)
         {
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor,_spotifyService);
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
 
             if (UserRole.AddToUserCollection(spotifyAlbumId))
                 TempData["SuccessMessage"] = "Vinyl added successfully";

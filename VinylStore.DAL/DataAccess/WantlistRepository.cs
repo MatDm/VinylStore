@@ -59,7 +59,7 @@ namespace VinylStore.DAL.DataAccess
 
         //---------------------NOT USED---------------------------
 
-        public void Insert(VinylForSaleMTO vinylForSaleMTO)
+        public string Insert(VinylForSaleMTO vinylForSaleMTO)
         {
             throw new NotImplementedException();
         }

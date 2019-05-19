@@ -26,7 +26,7 @@ namespace VinylStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SearchByAlbum(string query, string artistName = "",
+        public IActionResult SearchByAlbum(string query, string artistName = "",
             string year = "",
             string genre = "",
             string upc = "",
@@ -35,6 +35,7 @@ namespace VinylStore.Controllers
             int offset = 0)
         {
             var album = _spotifyService.GetVinyls(query, artistName, year, genre, upc, isrc, limit, offset);
+
 
             return View("SearchResult", album);
         }

@@ -40,10 +40,12 @@ namespace VinylStore.DAL.DataAccess
             return vinylEF.ToMTO();
         }
 
-        public void Insert(VinylMTO vinyl)
+        public string Insert(VinylMTO vinyl)
         {
-            _db.Vinyls.Add(vinyl.ToEntity());
+            var vinylEF = vinyl.ToEntity();
+            _db.Vinyls.Add(vinylEF);
             _db.SaveChanges();
+            return vinylEF.Id;
         }
 
         public IEnumerable<VinylMTO> GetMyCollectionForSaleByUserId(string userId)

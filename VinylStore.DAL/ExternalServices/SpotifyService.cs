@@ -11,17 +11,17 @@ namespace VinylStore.DAL.ExternalServices
 {
     public class SpotifyService : ISpotifyService
     {
-        SpotifyProxy spotifyService = new SpotifyProxy();
+        SpotifyProxy spotifyProxy = new SpotifyProxy();
 
-        public SpotifyService(/* !!!si necessaire!!! ajouter injectino ici*/)
+        public SpotifyService(/* !!!si necessaire!!! ajouter injection ici*/)
         {
-            spotifyService = new SpotifyProxy();
+            //spotifyProxy = new SpotifyProxy();
         }
 
         public VinylMTO GetVinylDetails(string spotifyAlbumId) { 
 
 
-            var album = spotifyService.GetAlbumById(spotifyAlbumId).Result;
+            var album = spotifyProxy.GetAlbumById(spotifyAlbumId).Result;
 
             //on vérifie si c'est pas vide
             if (album != null)
@@ -30,9 +30,9 @@ namespace VinylStore.DAL.ExternalServices
                 VinylMTO vinylMTO = album.ToMTO();
 
                 vinylMTO.SpotifyAlbumId = spotifyAlbumId;
-                vinylMTO.TrackList = spotifyService.GetTracks(album);
+                vinylMTO.TrackList = spotifyProxy.GetTracks(album);
 
-                var taskThread = Task.Run(async () => vinylMTO.Genres = await spotifyService.GetGenres(album));
+                var taskThread = Task.Run(async () => vinylMTO.Genres = await spotifyProxy.GetGenres(album));
 
                 taskThread.Wait();
 
@@ -53,7 +53,7 @@ namespace VinylStore.DAL.ExternalServices
         {
             AlbumSearchResultJsonModel albumsSearch = new AlbumSearchResultJsonModel();
             
-            var TaskThread = Task.Run(async () => albumsSearch = await spotifyService.GetAlbum(query, artistName, year, genre, upc, isrc, limit, offset));
+            var TaskThread = Task.Run(async () => albumsSearch = await spotifyProxy.GetAlbum(query, artistName, year, genre, upc, isrc, limit, offset));
 
             TaskThread.Wait();
 

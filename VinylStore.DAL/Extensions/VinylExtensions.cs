@@ -35,8 +35,7 @@ namespace VinylStore.DAL.Extensions
                 Genres = vinylMTO.Genres,
                 Label = vinylMTO.Label,
                 Description = vinylMTO.Description,
-                Price = vinylMTO.Price,
-                Id = vinylMTO.Id,
+                Price = vinylMTO.Price,                
                 ReleaseYear = vinylMTO.ReleaseYear,
                 SpotifyAlbumId = vinylMTO.ReleaseYear,
                 TrackList = vinylMTO.TrackList
