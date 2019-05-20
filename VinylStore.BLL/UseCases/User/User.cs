@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using VinylStore.Common.Auth;
 using VinylStore.Common.MTO;
 
 namespace VinylStore.BLL.UseCases
@@ -78,6 +79,17 @@ namespace VinylStore.BLL.UseCases
                 return false;
             }
 
+        }
+
+        public VinylMTO GetDetails(string vinylId)
+            => vinylRepository.GetVinylForSaleDetail(vinylId);
+
+        public bool EditVinyl(VinylMTO vinyl)
+            => vinylRepository.EditVinylForSaleDetail(vinyl);
+
+        public IEnumerable<ApplicationUser> GetSellers()
+        {
+            return vinylRepository.GetVinylSellers(userId);
         }
     }
 }

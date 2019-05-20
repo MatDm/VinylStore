@@ -38,8 +38,8 @@ namespace VinylStore.DAL.Extensions
                 Price = vinylMTO.Price,                
                 ReleaseYear = vinylMTO.ReleaseYear,
                 SpotifyAlbumId = vinylMTO.ReleaseYear,
-                TrackList = vinylMTO.TrackList
-
+                TrackList = vinylMTO.TrackList,
+                Id = vinylMTO.Id
             };
     }
 }

@@ -14,5 +14,10 @@ namespace VinylStore.ViewModels
         public string ReleaseYear { get; set; }
         public string[] TrackList { get; set; }
         public decimal Price { get; set; }
+        public string Id { get; set; }
+        public string Description { get; set; }
+        public string  Label { get; set; }
+
+
     }
 }

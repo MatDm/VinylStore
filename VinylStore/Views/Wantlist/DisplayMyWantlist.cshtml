@@ -6,7 +6,13 @@
 
 <div class="text-white">
     <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
-    <h1 class="text-white">Your wantlist :</h1>
+    
+    <div class="row">
+        <h1 class="text-white">Your wantlist:</h1>         
+        <button class="ml-auto mx-auto my-3 btn btn-outline-success" type="submit" asp-action="FindSellers" asp-controller="Wantlist" >
+            Find sellers!
+        </button>
+    </div>
 
 
     <table class="table table-striped text-white">

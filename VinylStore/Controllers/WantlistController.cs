@@ -75,6 +75,12 @@ namespace VinylStore.Controllers
             TempData["ErrorMessage"] = "Vinyl not deleted, something went wrong";
             return RedirectToAction("DisplayMyWantlist");
         }
+
+        public IActionResult FindSellers()
+        {
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+            var userList = UserRole.GetSellers().Select(x => x.ToShortViewModel());
+        }
     }
     
 }

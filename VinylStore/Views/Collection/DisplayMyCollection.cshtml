@@ -24,7 +24,7 @@
                 </td>
                 <td>
                     <div>
-                        @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.VinylId }, new { @class = "button button-primary" })
+                        @Html.ActionLink("Details", "Details", "Collection", new { vinylId = item.VinylId }, new { @class = "button button-primary" })
                     </div>
                     <div>
                         @Html.ActionLink("Delete", "Delete", "Collection", new { vinylId = item.VinylId }, new { @class = "button button-danger" })

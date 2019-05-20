@@ -10,6 +10,7 @@ using VinylStore.Common.Auth;
 using VinylStore.Common.Contracts;
 using VinylStore.Common.MTO;
 using VinylStore.DAL.ExternalServices;
+using VinylStore.ViewModels;
 using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
@@ -69,6 +70,36 @@ namespace VinylStore.Controllers
             }
             TempData["ErrorMessage"] = "Vinyl not deleted, something went wrong";
             return RedirectToAction("DisplayMyCollection");
+        }
+
+        //affiche les details d'un vinyl
+        public IActionResult Details(string vinylId)
+        {
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+            var vinylForSaleViewModel = UserRole.GetDetails(vinylId).ToViewModel();            
+            return View(vinylForSaleViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string vinylId)
+        {
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+            var vinyl = UserRole.GetDetails(vinylId).ToViewModel();
+            return View(vinyl);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(VinylViewModel vinyl)
+        {
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+
+            if (UserRole.EditVinyl(vinyl.ToMTO()))
+                TempData["SuccessMessage"] = "Vinyl edited successfully";
+            else
+                TempData["ErrorMessage"] = "Vinyl not edited, something went wrong";
+
+            //return vers la vue qui affiche les détails modifiés du vinyl (ou pas)
+            return RedirectToAction("Details", new { vinylId = vinyl.Id});
         }
     }
 

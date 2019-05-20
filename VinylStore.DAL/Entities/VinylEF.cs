@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using VinylStore.Common.Auth;
 
 namespace VinylStore.DAL.Entities
 {
@@ -24,6 +25,7 @@ namespace VinylStore.DAL.Entities
         public string Description { get; set; }
         public string Label { get; set; }
         public string SpotifyAlbumId { get; set; }
+
         [NotMapped]
         public string[] TrackList
         {
@@ -33,6 +35,7 @@ namespace VinylStore.DAL.Entities
                 _trackList = string.Join($"{trackDelimiter}", value);
             }
         }
+
         [NotMapped]
         public string[] Genres
         {
@@ -42,7 +45,9 @@ namespace VinylStore.DAL.Entities
                 _genres = string.Join($"{genreDelimiter}", value);
             }
         }
+
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }      
+        public decimal Price { get; set; }
+
     }
 }
