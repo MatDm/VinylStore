@@ -8,10 +8,12 @@
     <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
     
     <div class="row">
-        <h1 class="text-white">Your wantlist:</h1>         
-        <button class="ml-auto mx-auto my-3 btn btn-outline-success" type="submit" asp-action="FindSellers" asp-controller="Wantlist" >
-            Find sellers!
-        </button>
+        <h1 class="text-white">Your wantlist:</h1> 
+        <form method="get" asp-action="FindSellers" asp-controller="Wantlist">
+            <button class="btn btn-outline-success mx-5 my-1" type="submit" >
+                Find sellers!
+            </button>
+        </form>
     </div>
 
 

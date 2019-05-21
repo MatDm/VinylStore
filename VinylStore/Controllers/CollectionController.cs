@@ -48,11 +48,12 @@ namespace VinylStore.Controllers
             return View(vinylForSaleVM);
         }
 
-        public IActionResult AddToUserCollection(string spotifyAlbumId)
+        [HttpPost]
+        public IActionResult AddToUserCollection(VinylMTO vinyl)
         {
             var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
 
-            if (UserRole.AddToUserCollection(spotifyAlbumId))
+            if (UserRole.AddToUserCollection(vinyl))
                 TempData["SuccessMessage"] = "Vinyl added successfully";
             else
                 TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
@@ -101,7 +102,12 @@ namespace VinylStore.Controllers
             //return vers la vue qui affiche les détails modifiés du vinyl (ou pas)
             return RedirectToAction("Details", new { vinylId = vinyl.Id});
         }
+
+        [HttpGet]
+        public IActionResult EditCreate(string spotifyAlbumId)
+        {
+            var vinyl = _spotifyService.GetVinylDetails(spotifyAlbumId);
+            return View(vinyl);
+        }             
     }
-
-
 }

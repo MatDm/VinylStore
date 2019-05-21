@@ -88,7 +88,6 @@ namespace VinylStore.DAL.DataAccess
                             .ToList()
                     );
             }
-
             return ReturnValue;
         }
     }

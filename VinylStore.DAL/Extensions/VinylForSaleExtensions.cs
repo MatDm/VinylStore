@@ -12,9 +12,10 @@ namespace VinylStore.DAL.Extensions
             => new VinylForSaleMTO
             {
                 Id = vinylForSaleEntity.Id,
+                User = vinylForSaleEntity.User,
                 UserId = vinylForSaleEntity.UserId,
                 VinylId = vinylForSaleEntity.VinylId,
-                 Vinyl = vinylForSaleEntity.Vinyl.ToMTO()
+                Vinyl = vinylForSaleEntity.Vinyl.ToMTO()
             };
 
         public static VinylForSaleEF ToEntity(this VinylForSaleMTO vinylForSaleMTO)

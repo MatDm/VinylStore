@@ -18,9 +18,8 @@ namespace VinylStore.DAL.ExternalServices
             //spotifyProxy = new SpotifyProxy();
         }
 
-        public VinylMTO GetVinylDetails(string spotifyAlbumId) { 
-
-
+        public VinylMTO GetVinylDetails(string spotifyAlbumId)
+        { 
             var album = spotifyProxy.GetAlbumById(spotifyAlbumId).Result;
 
             //on vérifie si c'est pas vide
@@ -37,9 +36,7 @@ namespace VinylStore.DAL.ExternalServices
                 taskThread.Wait();
 
                 return vinylMTO;
-
             }
-
             return null;
         }
 

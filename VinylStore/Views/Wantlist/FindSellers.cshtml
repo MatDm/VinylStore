@@ -1,0 +1,49 @@
+﻿@model IEnumerable<VinylStore.ViewModels.VinylForSaleViewModel>
+
+@{
+    ViewData["Title"] = "FindSellers";
+}
+
+<div class="text-white">
+    <h1>FindSellers</h1>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table text-white">
+    <thead>
+        <tr>            
+            <th>
+                User
+            </th>
+            <th>
+                Vinyl
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vinyl.AlbumName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vinyl.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

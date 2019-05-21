@@ -15,16 +15,16 @@ namespace VinylStore.BLL.UseCases
         public IEnumerable<VinylMTO> GetMyWantlist()
             => vinylRepository.GetMyWantlistByUserId(userId);
 
-        public bool AddToUserCollection(string SpotifyAlbumID)
+        public bool AddToUserCollection(VinylMTO vinyl)
         {
             try
             {
-                var vinylMTO = spotifyRepository.GetVinylDetails(SpotifyAlbumID);
+                //var vinylMTO = spotifyRepository.GetVinylDetails(SpotifyAlbumID);
 
-                if (vinylMTO != null)
+                if (vinyl != null)
                 {
                     //on insère le VinylMTO dans la db 
-                    var vinylEFid = vinylRepository.Insert(vinylMTO);
+                    var vinylEFid = vinylRepository.Insert(vinyl);
 
                     //on met à jour la collection du user
                     var vinylForSale = new VinylForSaleMTO()
@@ -41,6 +41,7 @@ namespace VinylStore.BLL.UseCases
                 else
                     return false;
             }
+
             catch (Exception)
             {
                 return false;
@@ -87,7 +88,7 @@ namespace VinylStore.BLL.UseCases
         public bool EditVinyl(VinylMTO vinyl)
             => vinylRepository.EditVinylForSaleDetail(vinyl);
 
-        public IEnumerable<ApplicationUser> GetSellers()
+        public IEnumerable<VinylForSaleMTO> GetSellers()
         {
             return vinylRepository.GetVinylSellers(userId);
         }

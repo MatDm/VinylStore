@@ -2,9 +2,9 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;   
 }
 
 /* Sticky footer styles
@@ -102,11 +102,11 @@ body {
 
 
 .navbar-brand {
-        color: #ffffff;
-        height: 90px;
-        display: flex;
-        align-items: center;
-    }
+    color: #28a745;
+    height: 90px;
+    display: flex;
+    align-items: center;
+}
 
 .nav-link {
     text-transform: uppercase !important;

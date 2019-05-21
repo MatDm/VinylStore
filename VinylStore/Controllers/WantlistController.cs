@@ -79,7 +79,9 @@ namespace VinylStore.Controllers
         public IActionResult FindSellers()
         {
             var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-            var userList = UserRole.GetSellers().Select(x => x.ToShortViewModel());
+            var vinylForSaleList = UserRole.GetSellers().Select(x => x.ToViewModel());
+
+            return View(vinylForSaleList);
         }
     }
     
