@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace VinylStore.ViewModels.TypeExtentions
 {
     public static class VinylViewModelExtension
     {
+
         public static VinylViewModel ToViewModel(this VinylMTO vinylMTO)
         {
             var vinylViewModel = new VinylViewModel()
@@ -21,7 +23,8 @@ namespace VinylStore.ViewModels.TypeExtentions
                 Price = vinylMTO.Price,
                 ReleaseYear = vinylMTO.ReleaseYear,
                 TrackList = vinylMTO.TrackList,
-                Label = vinylMTO.Label
+                Label = vinylMTO.Label,
+                SpotifyAlbumId = vinylMTO.SpotifyAlbumId
 
             };
             return vinylViewModel;
@@ -40,7 +43,8 @@ namespace VinylStore.ViewModels.TypeExtentions
                 Price = vinyl.Price,
                 ReleaseYear = vinyl.ReleaseYear,
                 TrackList = vinyl.TrackList,
-                Label = vinyl.Label
+                Label = vinyl.Label,
+                SpotifyAlbumId = vinyl.SpotifyAlbumId
             };
             return vinylMTO;
         }

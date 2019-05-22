@@ -52,9 +52,9 @@ namespace VinylStore.DAL.DataAccess
         //    //return vinylsMTO;
         //}
 
-        public string Insert(VinylForSaleMTO vinylForSaleDTO)
+        public string Insert(VinylForSaleMTO vinylForSaleMTO)
         {
-            var vinylForSaleEF = vinylForSaleDTO.ToEntity();
+            var vinylForSaleEF = vinylForSaleMTO.ToEntity();
             _db.Collections.Add(vinylForSaleEF);
             _db.SaveChanges();
             return vinylForSaleEF.VinylId;

@@ -28,23 +28,24 @@ namespace VinylStore.DAL.ExternalServices
             }
         }
 
-        public string[] GetTracks(AlbumIdSearchResultJsonModel album) //REFACTOR rename to TrackRequest
+        public string GetTracks(AlbumIdSearchResultJsonModel album) //REFACTOR rename to TrackRequest
         {
             var tracksLength = album.tracks.items.Length;
 
             //si result contient un ou plusieurs tracks
             if (tracksLength > 0)
             {
-                var tracks = new string[tracksLength];
+                var tracksArray = new string[tracksLength];
 
                 for (int i = 0; i < tracksLength; i++)
                 {
-                    tracks[i] = album.tracks.items[i].name;
+                    tracksArray[i] = album.tracks.items[i].name;
                 }
-                return tracks;
+                var tracksDelimiter = "\t/\t";
+                var trackString = string.Join($"{tracksDelimiter}", tracksArray);
+                return trackString;
             }
-
-            //Si pas de genres
+            //Si pas de tracks
             return null;
         }
 
@@ -53,7 +54,7 @@ namespace VinylStore.DAL.ExternalServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public async Task<string[]> GetGenres(AlbumIdSearchResultJsonModel album)
+        public async Task<string> GetGenres(AlbumIdSearchResultJsonModel album)
         {
             //requete par artiste vers spotify pour choper les genres de l'artiste présent dans result
             string artistName = album.artists[0].name;
@@ -69,8 +70,12 @@ namespace VinylStore.DAL.ExternalServices
 
                 //on récupère le json de spotify
                 var apiResult = await output.Content.ReadAsAsync<ArtistSearchResultJsonModel>();
+                //définit un délimiteur pour la future string
+                var genreDelimiter = "\t/\t";
+                //création de la string des genres à partir de l'array obtenue(json)
+                var genres = string.Join($"{genreDelimiter}", apiResult.artists.items[0].genres);
 
-                return apiResult.artists.items[0].genres;
+                return genres;
             }
         }
 

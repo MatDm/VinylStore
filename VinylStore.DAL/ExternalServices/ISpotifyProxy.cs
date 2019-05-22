@@ -5,9 +5,9 @@ namespace VinylStore.DAL.ExternalServices
 {
     public interface ISpotifyProxy
     {
-        string[] GetTracks(AlbumIdSearchResultJsonModel result);
+        string GetTracks(AlbumIdSearchResultJsonModel result);
         Task<string> RefreshToken();
-        Task<string[]> GetGenres(AlbumIdSearchResultJsonModel result);
+        Task<string> GetGenres(AlbumIdSearchResultJsonModel result);
         Task<AlbumIdSearchResultJsonModel> GetAlbumById(string spotifyAlbumId);
         Task<AlbumSearchResultJsonModel> GetAlbum(string query, string artistName = "",
             string year = "",

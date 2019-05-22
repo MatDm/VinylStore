@@ -16,8 +16,8 @@ namespace VinylStore.Common.MTO
         public string Description { get; set; }
         public string Label { get; set; }
         public string SpotifyAlbumId { get; set; }
-        public string[] TrackList { get; set; }
-        public string[] Genres { get; set; }
+        public string TrackList { get; set; }
+        public string Genres { get; set; }
         public decimal Price { get; set; }      
     }
 }

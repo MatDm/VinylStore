@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using VinylStore.Common.Contracts;
 using VinylStore.DAL.ExternalServices;
 using VinylStore.DAL.ExternalServices.JsonModels;
+using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
@@ -13,8 +15,8 @@ namespace VinylStore.Controllers
     {
         
         private readonly ISpotifyService _spotifyService;
-        private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
-        private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
+        //private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
+        //private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
 
         public DiscogsController(ISpotifyService spotifyService)
         {

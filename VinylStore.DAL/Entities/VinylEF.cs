@@ -11,11 +11,11 @@ namespace VinylStore.DAL.Entities
     public class VinylEF
     {
         [Column("TrackList")]
-        public string _trackList { get; set; }
+        public string TrackList { get; set; }
         [Column("Genres")]
-        public string _genres { get; set; }
-        private static readonly char trackDelimiter = ';';
-        private static readonly char genreDelimiter = '/';
+        public string Genres { get; set; }
+        //private static readonly char trackDelimiter = '/';
+        //private static readonly char genreDelimiter = '/';
 
         public string Id { get; set; }
         public string AlbumName { get; set; }
@@ -26,25 +26,25 @@ namespace VinylStore.DAL.Entities
         public string Label { get; set; }
         public string SpotifyAlbumId { get; set; }
 
-        [NotMapped]
-        public string[] TrackList
-        {
-            get { return _trackList.Split(trackDelimiter); }
-            set
-            {
-                _trackList = string.Join($"{trackDelimiter}", value);
-            }
-        }
+        //[NotMapped]
+        //public string[] TrackList
+        //{
+        //    get { return _trackList.Split(trackDelimiter); }
+        //    set
+        //    {
+        //        _trackList = string.Join($"{trackDelimiter}", value);
+        //    }
+        //}
 
-        [NotMapped]
-        public string[] Genres
-        {
-            get { return _genres.Split(genreDelimiter); }
-            set
-            {
-                _genres = string.Join($"{genreDelimiter}", value);
-            }
-        }
+        //[NotMapped]
+        //public string[] Genres
+        //{
+        //    get { return _genres.Split(genreDelimiter); }
+        //    set
+        //    {
+        //        _genres = string.Join($"{genreDelimiter}", value);
+        //    }
+        //}
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }

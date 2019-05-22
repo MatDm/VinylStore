@@ -30,37 +30,37 @@
 </head>
 <body class="d-flex flex-column h-100">
     <header>
-       <nav class="navbar navbar-expand-md navbar-dark fixed-top">            
-                <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">Vinyl Store</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarCollapse"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Collection" asp-action="DisplayMyCollection">My Collection</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Wantlist" asp-action="DisplayMyWantlist">My Wantlist</a>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                        {
-                            @await Component.InvokeAsync("AdminMenu")
-                        }            
-                    </ul>                   
-                    <form class="form-inline mt-2 mt-md-0" asp-controller="Discogs" asp-action="SearchByAlbum">
-                        <input name="query" class="form-control mr-sm-2" type="text" placeholder="type the name of the album here" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search by album</button>
-                    </form>
-                    @await Html.PartialAsync("LoginPartial")
-                </div>            
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+            <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">Vinyl Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarCollapse"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Collection" asp-action="DisplayMyCollection">My Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Wantlist" asp-action="DisplayMyWantlist">My Wantlist</a>
+                    </li>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        @await Component.InvokeAsync("AdminMenu")
+                    }
+                </ul>
+                <form class="form-inline mt-2 mt-md-0" asp-controller="Discogs" asp-action="SearchByAlbum">
+                    <input name="query" class="form-control mr-sm-2" type="text" placeholder="type the name of the album here" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search by album</button>
+                </form>
+                @await Html.PartialAsync("LoginPartial")
+            </div>
         </nav>
     </header>
     <div class="container-fluid">
@@ -109,6 +109,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 </body>
 </html>
 

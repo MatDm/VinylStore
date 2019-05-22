@@ -8,7 +8,7 @@ namespace VinylStore.DAL.Extensions
 {
     public static class VinylExtensions
     {
-
+        private static readonly char genreDelimiter = '/';
         public static VinylMTO ToMTO(this VinylEF vinylEntity)
             => new VinylMTO()
             {

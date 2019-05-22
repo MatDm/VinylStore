@@ -11,6 +11,7 @@ using VinylStore.Common.Auth;
 using VinylStore.Common.Contracts;
 using VinylStore.DAL.ExternalServices;
 using VinylStore.ViewModels;
+using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
@@ -47,19 +48,19 @@ namespace VinylStore.Controllers
         //affiche les details d'un vinyl
         public IActionResult Details(string id)
         {
-            var vinylMTO = _vinylRepository.GetVinylMTOById(id);
-            var vinylViewModel = new VinylViewModel()
-            {
-                Description = vinylMTO.Description,
-                Id = vinylMTO.Id,
-                ImageUrl = vinylMTO.ImageUrl,
-                AlbumName = vinylMTO.AlbumName,
-                ArtistName = vinylMTO.ArtistName,
-                Genres = vinylMTO.Genres,
-                ReleaseYear = vinylMTO.ReleaseYear,
-                Price = vinylMTO.Price,
-                TrackList = vinylMTO.TrackList                
-            };                        
+            var vinylViewModel = _vinylRepository.GetVinylMTOById(id).ToViewModel();
+            //var vinylViewModel = new VinylViewModel()
+            //{
+            //    Description = vinylMTO.Description,
+            //    Id = vinylMTO.Id,
+            //    ImageUrl = vinylMTO.ImageUrl,
+            //    AlbumName = vinylMTO.AlbumName,
+            //    ArtistName = vinylMTO.ArtistName,
+                
+            //    ReleaseYear = vinylMTO.ReleaseYear,
+            //    Price = vinylMTO.Price,
+            //    TrackList = vinylMTO.TrackList                
+            //};                        
             return View(vinylViewModel);
         }
 
