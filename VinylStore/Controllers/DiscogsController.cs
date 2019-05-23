@@ -2,8 +2,12 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VinylStore.BLL.UseCases;
+using VinylStore.Common.Auth;
 using VinylStore.Common.Contracts;
 using VinylStore.DAL.ExternalServices;
 using VinylStore.DAL.ExternalServices.JsonModels;
@@ -11,22 +15,24 @@ using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
-    public class DiscogsController : Controller
+    public class SearchController : Controller
     {
-        
+        private readonly IVinylRepository _vinylRepo;
+        private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly ISpotifyService _spotifyService;
+        private readonly UserManager<ApplicationUser> _userManager;
         //private string consumerKey = "QvviaqTYLJDSiYtyXjbE";
         //private string consumerSecret = "NajYtMXVBZnrYocbXRsCbWinUCPXgMXI";
 
-        public DiscogsController(ISpotifyService spotifyService)
+        public SearchController(UserManager<ApplicationUser> userManager,
+            IVinylRepository vinylRepo, Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
         {
+            _userManager = userManager;
+            _vinylRepo = vinylRepo;
+            _listRepositoryAccessor = listRepositoryAccessor;
             _spotifyService = spotifyService;
         }
-        public IActionResult Search()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
         public IActionResult SearchByAlbum(string query, string artistName = "",
             string year = "",
@@ -36,8 +42,8 @@ namespace VinylStore.Controllers
             int limit = 20,
             int offset = 0)
         {
-            var album = _spotifyService.GetVinyls(query, artistName, year, genre, upc, isrc, limit, offset);
-
+            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+            var album = UserRole.SearchByAlbum(query, artistName, year, genre, upc, isrc, limit, offset);
 
             return View("SearchResult", album);
         }

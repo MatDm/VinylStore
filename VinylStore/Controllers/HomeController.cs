@@ -8,6 +8,7 @@ using VinylStore.Abstract;
 using VinylStore.Common.Contracts;
 using VinylStore.Models;
 using VinylStore.ViewModels;
+using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
@@ -20,20 +21,9 @@ namespace VinylStore.Controllers
         }
         public ViewResult Index()
         {
-            var vinylMTO = _vinylRepository.GetAllVinylMTOs();
-            var vinylShortViewModels = new List<VinylShortViewModel>();
-            foreach (var vinyl in vinylMTO)
-            {
-                var shortModel = new VinylShortViewModel()
-                {
-                    ImageUrl = vinyl.ImageUrl,
-                    AlbumName = vinyl.AlbumName,
-                    ArtistName = vinyl.ArtistName
-                };
-                vinylShortViewModels.Add(shortModel);
-            }
+            var vinyls = _vinylRepository.GetAllVinylMTOs().Select(v => v.ToShortViewModel()).ToList();
 
-            return View(vinylShortViewModels);
+            return View(vinyls);
         }
 
         public IActionResult Privacy()

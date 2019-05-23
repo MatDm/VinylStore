@@ -22,7 +22,7 @@ namespace VinylStore.DAL.Entities
         [ForeignKey("VinylId")]
         public virtual VinylEF Vinyl { get; set; }
 
-        public DateTime Validity { get; set; }
-        public Double MaxPrice { get; set; }
+        //public DateTime Validity { get; set; }
+        //public Double MaxPrice { get; set; }
     }
 }

@@ -12,14 +12,14 @@ namespace VinylStore.BLL.UseCases
         private readonly IVinylRepository vinylRepository;
         //private readonly ISpotifyProxy spotifyService;
         private readonly Func<string, IListRepository> listRepositoryAccessor;
-        private readonly ISpotifyService spotifyRepository;
+        private readonly ISpotifyService spotifyService;
 
         public UserUC(string UserId, IVinylRepository vinylRepository, Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
         {
             userId = UserId;
             this.vinylRepository = vinylRepository;
             this.listRepositoryAccessor = listRepositoryAccessor;
-            this.spotifyRepository = spotifyService;
+            this.spotifyService = spotifyService;
         }
 
         

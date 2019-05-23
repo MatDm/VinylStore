@@ -29,38 +29,16 @@ namespace VinylStore.Controllers
         }
         public IActionResult List()
         {
-            var vinyls = _vinylRepository.GetAllVinylMTOs();
-            var vinylShortViewModels = new List<VinylShortViewModel>();
-            foreach (var vinylMTO in vinyls)
-            {
-                var shortModel = new VinylShortViewModel()
-                {
-                    ImageUrl = vinylMTO.ImageUrl,
-                    AlbumName = vinylMTO.AlbumName,
-                    ArtistName = vinylMTO.ArtistName
-                };
-                vinylShortViewModels.Add(shortModel);
-            }
-            
-            return View(vinylShortViewModels);
+            var vinyls = _vinylRepository.GetAllVinylMTOs().Select(v => v.ToShortViewModel()).ToList();
+                      
+            return View(vinyls);
         }
 
         //affiche les details d'un vinyl
         public IActionResult Details(string id)
         {
             var vinylViewModel = _vinylRepository.GetVinylMTOById(id).ToViewModel();
-            //var vinylViewModel = new VinylViewModel()
-            //{
-            //    Description = vinylMTO.Description,
-            //    Id = vinylMTO.Id,
-            //    ImageUrl = vinylMTO.ImageUrl,
-            //    AlbumName = vinylMTO.AlbumName,
-            //    ArtistName = vinylMTO.ArtistName,
-                
-            //    ReleaseYear = vinylMTO.ReleaseYear,
-            //    Price = vinylMTO.Price,
-            //    TrackList = vinylMTO.TrackList                
-            //};                        
+                  
             return View(vinylViewModel);
         }
 

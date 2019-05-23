@@ -1,7 +1,7 @@
 ﻿@model VinylStore.ViewModels.VinylViewModel
 
 @{
-    ViewData["Title"] = "EditCreate";
+    ViewData["Title"] = "Create";
 }
 <div class="text-white">
     <h1>Create</h1>
@@ -9,7 +9,7 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="AddToUserCollection">
+            <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <input asp-for="Id" class="form-control" hidden />
@@ -19,29 +19,31 @@
                     <input asp-for="ImageUrl" class="form-control" type="hidden" />
                 </div>
                 <div class="form-group">
-                    <strong><label asp-for="AlbumName" class="control-label"></label></strong>                    
+                    <strong><label asp-for="AlbumName" class="control-label">Album</label></strong>                    
                     <input asp-for="AlbumName" class="form-control" />
                     <span asp-validation-for="AlbumName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <strong><label asp-for="ArtistName">Artist name</label></strong>
+                    <strong><label asp-for="ArtistName">Artist</label></strong>
                     <div class="">@Model.ArtistName</div>
                     <input asp-for="ArtistName" class="form-control" type="hidden" />
                     <span asp-validation-for="ArtistName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <strong><label asp-for="Genres" class="control-label"></label></strong>
-                    <input asp-for="Genres" class="form-control" />
+                    <input asp-for="Genres" class="form-control"/>
                     <span asp-validation-for="Genres" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <strong><label asp-for="TrackList">Tracks</label></strong>
                     <div class="">@Model.TrackList</div>
+                    <input asp-for="TrackList" class="form-control" type="hidden" />
                     <span asp-validation-for="TrackList" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <strong><label asp-for="ReleaseYear">Year</label></strong>
                     <div class="">@Model.ReleaseYear</div>
+                    <input asp-for="ReleaseYear" class="form-control" type="hidden" />
                     <span asp-validation-for="ReleaseYear" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -52,6 +54,7 @@
                 <div class="form-group">
                     <strong><label asp-for="Label">Label</label></strong>
                     <div class="">@Model.Label</div>
+                    <input asp-for="Label" class="form-control" type="hidden" />
                     <span asp-validation-for="Label" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -69,9 +72,9 @@
         </div>
     </div>
 
-    <div>
+    @*<div>
         <a asp-action="Index">Back to List</a>
-    </div>
+    </div>*@
 </div>
 
 

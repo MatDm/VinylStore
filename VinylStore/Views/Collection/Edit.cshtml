@@ -1,10 +1,11 @@
 ﻿@model VinylStore.ViewModels.VinylViewModel
 
 @{
-    ViewData["Title"] = "EditGet";
+    ViewData["Title"] = "Edit";
 }
+
 <div class="text-white">
-    <h1>Edit</h1>
+    <h1>Create</h1>
 
     <hr />
     <div class="row">
@@ -12,54 +13,57 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <img src="@Model.ImageUrl" alt="Alternate Text" height="250" width="250"/>                        
-                        <input asp-for="ImageUrl" class="form-control" type="hidden"/>                        
-                    </div>
+                    <input asp-for="Id" class="form-control" hidden />
+                </div>
                 <div class="form-group">
-                    <label asp-for="AlbumName" class="control-label">Album name</label>
+                    <img src="@Model.ImageUrl" alt="Alternate Text" height="250" width="250" />
+                    <input asp-for="ImageUrl" class="form-control" type="hidden" />
+                </div>
+                <div class="form-group">
+                    <strong><label asp-for="AlbumName" class="control-label"></label></strong>
                     <input asp-for="AlbumName" class="form-control" />
                     <span asp-validation-for="AlbumName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ArtistName" class="control-label">Artist name</label>
-                    <input asp-for="ArtistName" class="form-control" />
+                    <strong><label asp-for="ArtistName">Artist name</label></strong>
+                    <div class="">@Model.ArtistName</div>
+                    <input asp-for="ArtistName" class="form-control" type="hidden" />
                     <span asp-validation-for="ArtistName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Genres" class="control-label">Genres</label>
+                    <strong><label asp-for="Genres" class="control-label"></label></strong>
                     <input asp-for="Genres" class="form-control" />
                     <span asp-validation-for="Genres" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TrackList" class="control-label">TrackList</label>
-                    <input asp-for="TrackList" class="form-control" />
-                    <span asp-validation-for="Genres" class="text-danger"></span>
+                    <strong><label asp-for="TrackList">Tracks</label></strong>
+                    <div class="">@Model.TrackList</div>
+                    <span asp-validation-for="TrackList" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ReleaseYear" class="control-label">Release date</label>
-                    <input asp-for="ReleaseYear" class="form-control" />
+                    <strong><label asp-for="ReleaseYear">Year</label></strong>
+                    <div class="">@Model.ReleaseYear</div>
                     <span asp-validation-for="ReleaseYear" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Label" class="control-label">Label</label>
-                    <input asp-for="Label" class="form-control" />
-                    <span asp-validation-for="Label" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-                <div class="form-group">                    
-                    <input asp-for="Id" class="form-control" type="hidden"/>                    
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
+                    <strong><label asp-for="Description" class="control-label"></label></strong>
                     <input asp-for="Description" class="form-control" />
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    @*@Html.ActionLink("Save", "Edit", new { vinylId = Model.Id })*@
+                    <strong><label asp-for="Label">Label</label></strong>
+                    <div class="">@Model.Label</div>
+                    <span asp-validation-for="Label" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="SpotifyAlbumId" class="form-control" hidden />
+                </div>
+                <div class="form-group">
+                    <strong><label asp-for="Price" class="control-label"></label></strong>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </form>
@@ -67,8 +71,14 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="DisplayMyCollection">Back to List</a>
     </div>
 </div>
+
+
+
+
+
+
 
 

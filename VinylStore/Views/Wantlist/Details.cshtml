@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
+
 <div class="text-white">
     <h1>Details</h1>
 
@@ -32,10 +33,10 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Genres)
-                
+
             </dd>
             <dt class="col-sm-2">
-                Tracklist:
+                Tracks:
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.TrackList)
@@ -45,30 +46,23 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.ReleaseYear)
-            </dd>            
+            </dd>
             <dt class="col-sm-2">
                 Label:
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Label)
-            </dd>
-            <dt class="col-sm-2">
-                Price(€):
-            </dt>
-            <dd class="col-sm-10">
+            </dd>            
+            <dd class="col-sm-10" hidden>
                 @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class="col-sm-2">
-                Description:
-            </dt>
-            <dd class="col-sm-10">
+            </dd>            
+            <dd class="col-sm-10" hidden>
                 @Html.DisplayFor(model => model.Description)
             </dd>
         </dl>
     </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new  { vinylId = Model.Id})
-        <a asp-action="DisplayMyCollection">Back to List</a>
+    <div>       
+        <a asp-action="DisplayMyWantlist">Back to List</a>
     </div>
 </div>
 

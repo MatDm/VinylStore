@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using VinylStore.Abstract;
 using VinylStore.BLL.UseCases;
 using VinylStore.Common.Auth;
 using VinylStore.Common.Contracts;
-using VinylStore.Common.MTO;
 using VinylStore.DAL.ExternalServices;
-using VinylStore.DAL.ExternalServices.JsonModels;
-using VinylStore.Models;
-
-using VinylStore.ViewModels;
 using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
@@ -29,7 +20,8 @@ namespace VinylStore.Controllers
         private readonly IVinylRepository _vinylRepo;
         private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly ISpotifyService _spotifyService;
-
+        private UserUC userRole
+            => new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
         public WantlistController(UserManager<ApplicationUser> userManager, IVinylRepository vinylRepo,
             Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
         {
@@ -42,9 +34,8 @@ namespace VinylStore.Controllers
         public async Task<IActionResult> DisplayMyWantlist()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-            var vinylForSaleVM = UserRole.GetMyWantlist().Select(x => x.ToShortViewModel());
+           
+            var vinylForSaleVM = userRole.GetMyWantlist().Select(x => x.ToShortViewModel());
 
             ViewBag.UserId = currentUser.Id;
             ViewBag.UserName = currentUser.UserName;
@@ -53,16 +44,23 @@ namespace VinylStore.Controllers
         }
 
         public IActionResult AddToUserWantlist(string spotifyAlbumId)
-        {
-
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-
-            if (UserRole.AddToUserWantlist(spotifyAlbumId))
-                TempData["SuccessMessage"] = "Vinyl added successfully";
-            else
-                TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
-
+        {           
+            try
+            {
+                userRole.AddToUserWantlist(spotifyAlbumId);
+                TempData["SuccessMessage"] = "Vinyl added successfully";                   
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Vinyl not added, something went wrong : {ex.Message}";
+            }
             return RedirectToAction("DisplayMyWantlist");
+        }
+
+        public IActionResult Details(string vinylId)
+        {
+            var vinylViewModel = userRole.GetDetails(vinylId).ToViewModel();
+            return View(vinylViewModel);
         }
 
         public IActionResult Delete(string vinylId)
@@ -77,9 +75,8 @@ namespace VinylStore.Controllers
         }
 
         public IActionResult FindSellers()
-        {
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-            var vinylForSaleList = UserRole.GetSellers().Select(x => x.ToViewModel());
+        {            
+            var vinylForSaleList = userRole.GetSellers().Select(x => x.ToViewModel());
 
             return View(vinylForSaleList);
         }

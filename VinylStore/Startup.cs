@@ -21,6 +21,7 @@ using VinylStore.DAL.DataAccess;
 using VinylStore.Models;
 
 using VinylStore.Common.MTO;
+using VinylStore.Hubs;
 
 namespace VinylStore
 {
@@ -82,8 +83,7 @@ namespace VinylStore
                         throw new KeyNotFoundException(); // or maybe return null
                 }
             });
-
-
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,9 +104,11 @@ namespace VinylStore
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
             
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

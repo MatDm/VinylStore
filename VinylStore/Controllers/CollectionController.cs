@@ -25,7 +25,9 @@ namespace VinylStore.Controllers
         private readonly IVinylRepository _vinylRepo;
         private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly ISpotifyService _spotifyService;
-
+        private UserUC userRole
+            => new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+        
         public CollectionController(UserManager<ApplicationUser> userManager,
             IVinylRepository vinylRepo, Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
         {
@@ -39,8 +41,7 @@ namespace VinylStore.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo,_listRepositoryAccessor, _spotifyService);
-            var vinylForSaleVM = UserRole.GetMyCollectionForSales().Select(x => x.ToShortViewModel());
+            var vinylForSaleVM = userRole.GetMyCollectionForSales().Select(x => x.ToShortViewModel());
 
             ViewBag.UserId = currentUser.Id;
             ViewBag.UserName = currentUser.UserName;
@@ -48,14 +49,19 @@ namespace VinylStore.Controllers
             return View(vinylForSaleVM);
         }
 
+        [HttpGet]
+        public IActionResult Create(string spotifyAlbumId)
+        {
+            var vinyl = _spotifyService.GetVinylDetails(spotifyAlbumId).ToViewModel();
+            return View(vinyl);
+        }
+
         [HttpPost]
-        public IActionResult AddToUserCollection(VinylViewModel vinyl)
+        public IActionResult Create(VinylViewModel vinyl)
         {
             if (ModelState.IsValid)
             {
-                var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-
-                if (UserRole.AddToUserCollection(vinyl.ToMTO()))
+                if (userRole.AddToUserCollection(vinyl.ToMTO()))
                     TempData["SuccessMessage"] = "Vinyl added successfully";
                 else
                     TempData["ErrorMessage"] = "Vinyl not added, something went wrong";
@@ -63,7 +69,7 @@ namespace VinylStore.Controllers
                 return RedirectToAction("DisplayMyCollection");
             }
             else
-                return RedirectToAction("EditCreate", new { spotifyAlbumId = vinyl.SpotifyAlbumId });                
+                return RedirectToAction("EditCreate", new { spotifyAlbumId = vinyl.SpotifyAlbumId });
         }
 
         public IActionResult Delete(string vinylId)
@@ -80,38 +86,29 @@ namespace VinylStore.Controllers
         //affiche les details d'un vinyl
         public IActionResult Details(string vinylId)
         {
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-            var vinylForSaleViewModel = UserRole.GetDetails(vinylId).ToViewModel();            
+            var vinylForSaleViewModel = userRole.GetDetails(vinylId).ToViewModel();
             return View(vinylForSaleViewModel);
         }
 
         [HttpGet]
         public IActionResult Edit(string vinylId)
         {
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-            var vinyl = UserRole.GetDetails(vinylId).ToViewModel();
+            var vinyl = userRole.GetDetails(vinylId).ToViewModel();
             return View(vinyl);
         }
 
         [HttpPost]
         public IActionResult Edit(VinylViewModel vinyl)
         {
-            var UserRole = new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
-
-            if (UserRole.EditVinyl(vinyl.ToMTO()))
+            if (userRole.EditVinyl(vinyl.ToMTO()))
                 TempData["SuccessMessage"] = "Vinyl edited successfully";
             else
                 TempData["ErrorMessage"] = "Vinyl not edited, something went wrong";
 
             //return vers la vue qui affiche les détails modifiés du vinyl (ou pas)
-            return RedirectToAction("Details", new { vinylId = vinyl.Id});
+            return RedirectToAction("Details", new { vinylId = vinyl.Id });
         }
 
-        [HttpGet]
-        public IActionResult EditCreate(string spotifyAlbumId)
-        {
-            var vinyl = _spotifyService.GetVinylDetails(spotifyAlbumId).ToViewModel();
-            return View(vinyl);
-        }             
+
     }
 }

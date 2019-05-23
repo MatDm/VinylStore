@@ -16,7 +16,7 @@ namespace VinylStore.Common.Contracts
         bool Delete(string vinylId);
         IEnumerable<VinylMTO> GetMyWantlistByUserId(string userId);
         IEnumerable<VinylMTO> GetMyCollectionForSaleByUserId(string userId);
-        VinylMTO GetVinylForSaleDetail(string vinylId);
+        VinylMTO GetVinylForSaleDetail(string vinylId);       
         bool EditVinylForSaleDetail(VinylMTO vinyl);
         IEnumerable<VinylForSaleMTO> GetVinylSellers(string userId);
     }

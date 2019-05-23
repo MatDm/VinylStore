@@ -20,12 +20,12 @@ namespace VinylStore.ViewModels
         public string ReleaseYear { get; set; }
         public string TrackList { get; set; }
         [Required(ErrorMessage = "Please enter a price")]
-        [Range(1, 1000000)]
+        [Range(1, 1000000, ErrorMessage = "Please enter a valid price")]
         public decimal Price { get; set; }
         public string Id { get; set; }
         public string SpotifyAlbumId { get; set; }
         [Required(ErrorMessage = "Please enter a description : general state of the vinyl, cover, any particularity...")]
-        [StringLength(1000)]
+        [StringLength(1000, MinimumLength = 10, ErrorMessage = "Description is too short/long")]
         public string Description { get; set; }
         public string  Label { get; set; }
     }

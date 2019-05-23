@@ -19,7 +19,7 @@ namespace VinylStore.DAL.Extensions
         public static WantlistEF ToEntity(this WantlistMTO wantlistDTO)
             => new WantlistEF
             {
-                Id = wantlistDTO.Id,
+                
                 UserId = wantlistDTO.UserId,
                 VinylId = wantlistDTO.VinylId,
             };

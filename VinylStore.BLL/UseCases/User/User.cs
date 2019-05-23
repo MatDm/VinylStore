@@ -53,7 +53,7 @@ namespace VinylStore.BLL.UseCases
         {
             try
             {
-                var vinylMTO = spotifyRepository.GetVinylDetails(spotifyAlbumId);
+                var vinylMTO = spotifyService.GetVinylDetails(spotifyAlbumId);
 
                 if (vinylMTO != null)
                 {
@@ -75,9 +75,9 @@ namespace VinylStore.BLL.UseCases
                 else
                     return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("AddToUserWantlist: une erreur est intervenue dans les processus d'ajout à la wantlist", ex);
             }
 
         }
@@ -92,5 +92,19 @@ namespace VinylStore.BLL.UseCases
         {
             return vinylRepository.GetVinylSellers(userId);
         }
+
+        public List<VinylMTO> SearchByAlbum(string query, string artistName = "",
+            string year = "",
+            string genre = "",
+            string upc = "",
+            string isrc = "",
+            int limit = 20,
+            int offset = 0)
+        {
+            var album = spotifyService.GetVinyls(query, artistName, year, genre, upc, isrc, limit, offset);
+            return album;
+        }
+
+
     }
 }
