@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using VinylStore.Common.Auth;
+using VinylStore.ViewModels;
 
 namespace VinylStore.Controllers
 {
@@ -13,14 +14,20 @@ namespace VinylStore.Controllers
             _userManager = userManager;
         }
         
-        public async Task<IActionResult> Chat()
+        public async Task<IActionResult> Chat(string receiverName, string receiverId)
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
             ViewBag.UserId = currentUser.Id;
             ViewBag.UserName = currentUser.UserName;
 
-            return View();
+            var receiverModel = new ReceiverViewModel()
+            {
+                ReceiverId = receiverId,
+                ReceiverName = receiverName
+            };
+
+            return View("_Layout",receiverModel);
         }
     }
 }

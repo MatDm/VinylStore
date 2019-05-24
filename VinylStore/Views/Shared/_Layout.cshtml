@@ -5,6 +5,8 @@
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+@*@model VinylStore.ViewModels.ReceiverViewModel*@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject IAuthorizationService AuthorizationService
 @inject UserManager<ApplicationUser> UserManager
@@ -81,6 +83,34 @@
             @RenderBody()
         </main>
     </div>
+    
+        <h1>Chat</h1>
+
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6"><input type="text" id="receiverName" /></div>
+                @*<span id="receiverId" hidden>@Model.ReceiverId</span>*@
+                <div class="col-6">
+                    User :  
+                    <br />
+                    Message : <input type="text" id="messageInput" />
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
+            </div>
+        </div>
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -91,6 +121,8 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"

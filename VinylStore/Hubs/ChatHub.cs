@@ -17,11 +17,15 @@ namespace VinylStore.Hubs
         public ChatHub(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
+            //Groups.AddToGroupAsync(this.Context.ConnectionId, "mygroup", new System.Threading.CancellationToken());
         }
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string receiverId, string user, string message)
         {
+            var currentTalker = await userManager.FindByNameAsync(user);
+
             //var User = await userManager.GetUserAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //await Clients.User(User).SendAsync("ReceiveMessage", user, message);
+            await Clients.User(receiverId).SendAsync("DisplayNewChatMessage", user, message);
+            //await Clients.OthersInGroup("mygroup").SendAsync("ReceiveMessage", user, message);
         }
     }
 }

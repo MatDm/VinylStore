@@ -41,7 +41,7 @@
                 @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id })
             </td>
             <td>
-                @Html.ActionLink("Chat now!", "Chat", "Chat")
+                @Html.ActionLink("Chat now!", "Chat", "Chat", new { receiverId = item.User.Id, receiverName = item.User.UserName })
             </td>
         </tr>
         }
