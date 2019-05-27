@@ -12,7 +12,7 @@
 </p>
 <table class="table text-white">
     <thead>
-        <tr>            
+        <tr>
             <th>
                 User
             </th>
@@ -27,26 +27,62 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vinyl.AlbumName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vinyl.Price)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id })
-            </td>
-            <td>
-                @Html.ActionLink("Chat now!", "Chat", "Chat", new { receiverId = item.User.Id, receiverName = item.User.UserName })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vinyl.AlbumName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vinyl.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id })
+
+                </td>
+                <td></td>
+            </tr>
         }
     </tbody>
 </table>
+
+@*<button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+    <form class="form-container">
+        <h1>Chat</h1>
+
+        <span id="senderName" hidden>@User.Identity.Name</span>
+
+        <label><b>Send to :</b></label>
+        <textarea placeholder="Type the name of the other user.." id="receiverName" required></textarea>
+
+        <label><b>Message :</b></label>
+        <textarea placeholder="Type message.." id="messageInput" required></textarea>
+
+        <button type="submit" class="btn" id="sendButton">Send</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">&nbsp;</div>
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>
+</div>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>*@
+
+
+
+
+
 
 
 

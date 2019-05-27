@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+    <form class="form-container">
+        <h1>Chat</h1>
+
+        <span id="senderName" hidden>@User.Identity.Name</span>
+
+        <label><b>Send to :</b></label>
+        <textarea placeholder="Type the name of the other user.." id="receiverName" required></textarea>
+
+        <div>
+            <ul id="messagesList"></ul>
+        </div>
+
+        <label><b>Message :</b></label>
+        <textarea placeholder="Type message.." id="messageInput" required></textarea>
+
+        <button type="submit" class="btn" id="sendButton">Send</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+</div>
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+
+
+
+

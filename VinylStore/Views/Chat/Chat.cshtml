@@ -1,7 +1,41 @@
-﻿@{
+﻿@model VinylStore.ViewModels.ReceiverViewModel
+@{
     ViewData["Title"] = "Chat";
 }
 
+@*<div class="text-white">
+        <h1>Chat</h1>
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">
+                    your name :    <input type="text" id="senderName" />
+                    <br />
+                    Send to : <div class="col-6"><input type="text" id="receiverName" /></div>
+                    <br />
+                    Message : <input type="text" id="messageInput" />
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
 
 
 

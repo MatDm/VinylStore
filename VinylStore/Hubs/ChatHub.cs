@@ -19,12 +19,13 @@ namespace VinylStore.Hubs
             this.userManager = userManager;
             //Groups.AddToGroupAsync(this.Context.ConnectionId, "mygroup", new System.Threading.CancellationToken());
         }
-        public async Task SendMessage(string receiverId, string user, string message)
+        public async Task SendMessage(string receiverName, string senderName, string message)
         {
-            var currentTalker = await userManager.FindByNameAsync(user);
-
+            //var currentTalker = await userManager.FindByNameAsync(userName);
+            var receiver = await userManager.FindByNameAsync(receiverName);
+            var sender = await userManager.FindByNameAsync(senderName);
             //var User = await userManager.GetUserAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            await Clients.User(receiverId).SendAsync("DisplayNewChatMessage", user, message);
+            await Clients.Users(receiver.Id, sender.Id).SendAsync("DisplayNewChatMessage", senderName, message);
             //await Clients.OthersInGroup("mygroup").SendAsync("ReceiveMessage", user, message);
         }
     }

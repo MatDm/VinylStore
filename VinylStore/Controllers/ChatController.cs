@@ -27,7 +27,7 @@ namespace VinylStore.Controllers
                 ReceiverName = receiverName
             };
 
-            return View("_Layout",receiverModel);
+            return View("Chat",receiverModel);
         }
     }
 }

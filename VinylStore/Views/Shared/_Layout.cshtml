@@ -29,6 +29,7 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/chat.css" />
 </head>
 <body class="d-flex flex-column h-100">
     <header>
@@ -84,32 +85,8 @@
         </main>
     </div>
     
-        <h1>Chat</h1>
-
-        <div class="container">
-            <div class="row">&nbsp;</div>
-            <div class="row">
-                <div class="col-6"><input type="text" id="receiverName" /></div>
-                @*<span id="receiverId" hidden>@Model.ReceiverId</span>*@
-                <div class="col-6">
-                    User :  
-                    <br />
-                    Message : <input type="text" id="messageInput" />
-                    <input type="button" id="sendButton" value="Send Message" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <hr />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">&nbsp;</div>
-                <div class="col-6">
-                    <ul id="messagesList"></ul>
-                </div>
-            </div>
-        </div>
+    @await Html.PartialAsync("_Chat")
+        
     
 
     <footer class="border-top footer text-muted">
@@ -120,9 +97,7 @@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-        <script src="~/js/chat.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>       
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
