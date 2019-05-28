@@ -37,16 +37,7 @@
     background-color: white;
 }
 
-    /* Full-width textarea */
-    .form-container textarea {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0 22px 0;
-        border: none;
-        background: #f1f1f1;
-        resize: none;
-        min-height: 50px;
-    }
+    
     /*.form-container #senderName {
         width: 100%;
         padding: 15px;
@@ -74,8 +65,8 @@
 
     /* Set a style for the submit/send button */
     .form-container .btn {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #28a745;
+        color: black;
         padding: 16px 20px;
         border: none;
         cursor: pointer;
@@ -92,28 +83,58 @@
     /* Add some hover effects to buttons */
     .form-container .btn:hover, .open-button:hover {
         opacity: 1;
+        color: white;
     }
 
-.message_container_base {
-    
+
+/*----------------New styles--------------*/
+
+#messagesList {
+    list-style: none;
+    padding-left: 0;
 }
+
+.message_container_base {
+}
+
+/* Full-width textarea */
+.form-container textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 50px;
+}
+
+
 
 .senderMessage {
     background: #e5e5e5;
-    margin: 0;
-    padding: 0 10px 10px;
-    max-height: 300px;
     overflow-x: hidden;
-    padding-bottom: 20px !important;
-    margin-right: 0;
+    padding: 15px;
+    max-width: 70%;
+    margin-left: 30%;
+    word-break: break-word;
+    font-size: 0.75rem;
 }
 
 .receiverMessage {
+    max-width: 70%;
     background: #e5e5e5;
-    margin: 0;
-    padding: 0 10px 10px;
+    margin: 10px;
+    padding: 15px 15px 15px 15px;
     max-height: 300px;
     overflow-x: hidden;
-    padding-left: 0;
-    margin-left: 0;
+    font-size: 0.75rem;
+    margin-right: 0;
 }
+
+
+.message-input{
+
+}
+
+
+

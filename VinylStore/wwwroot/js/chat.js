@@ -39,6 +39,9 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+    connection.invoke("RetrieveHistory", "receiverName", senderName).catch(function (err) {
+        return console.error(err.toString());
+    });
 }
 
 function closeForm() {

@@ -22,6 +22,7 @@ using VinylStore.Models;
 
 using VinylStore.Common.MTO;
 using VinylStore.Hubs;
+using VinylStore.Common.Contracts.DAL;
 
 namespace VinylStore
 {
@@ -70,6 +71,7 @@ namespace VinylStore
             services.AddScoped<VinylForSaleRepository>();
             services.AddScoped<WantlistRepository>();
             services.AddScoped<ISpotifyService, SpotifyService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddTransient<Func<string, IListRepository>>(serviceProvider => key =>
             {

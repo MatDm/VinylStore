@@ -105,6 +105,6 @@ namespace VinylStore.BLL.UseCases
             return album;
         }
 
-
+        //public IEnumerable<ApplicationUser> GetUsers() => userRepository.GetAllUsers();
     }
 }
