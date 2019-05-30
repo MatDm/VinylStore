@@ -5,7 +5,7 @@
 }
 
 <div class="text-white">
-    <p>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
+    <p hidden>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
     
     <div class="row">
         <h1 class="text-white">Your wantlist:</h1> 
@@ -32,10 +32,10 @@
                 </td>
                 <td>
                     <div>
-                        @Html.ActionLink("Details", "Details", "Wantlist", new { vinylId = item.VinylId }, new { @class = "button button-primary" })
+                        @Html.ActionLink("Details", "Details", "Wantlist", new { vinylId = item.VinylId }, new { @class = "btn btn-outline-success" })
                     </div>
                     <div>
-                        @Html.ActionLink("Delete", "Delete", "Wantlist", new { vinylId = item.VinylId }, new { @class = "button button-danger" })
+                        @Html.ActionLink("Delete", "Delete", "Wantlist", new { vinylId = item.VinylId }, new { @class = "btn btn-danger" })
                     </div>
                 </td>
             </tr>

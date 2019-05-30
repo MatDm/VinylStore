@@ -23,10 +23,10 @@
                         @Html.ActionLink("Add to Collection", "AddToUserCollection", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId })
                     </div>*@
                     <div>
-                        @Html.ActionLink("Add to Collection", "Create", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId })
+                        @Html.ActionLink("Add to Collection", "Create", "Collection", new { spotifyAlbumId = @item.SpotifyAlbumId }, new { @class = "btn btn-outline-success" })
                     </div>
                     <div>
-                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @item.SpotifyAlbumId })
+                        @Html.ActionLink("Add to Wantlist", "AddToUserWantlist", "Wantlist", new { spotifyAlbumId = @item.SpotifyAlbumId }, new { @class = "btn btn-outline-success" })
                     </div>                   
                 </td>
             </tr>

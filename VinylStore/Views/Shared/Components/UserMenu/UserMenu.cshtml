@@ -1,0 +1,19 @@
+﻿@model VinylStore.Component.UserMenuItem
+
+
+<li class="nav-item dropdown">
+    <a asp-controller="Account"
+       asp-action="Index" class="nav-link dropdown-toggle" data-toggle="dropdown">
+        @User.Identity.Name<b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu">
+        <li>
+            <form asp-controller="Account" asp-action=@Model.ActionValue id="logoutForm" method="post">
+                <a href="javascript:document.getElementById('logoutForm').submit()">@Model.DisplayValue</a>
+            </form>           
+        </li>
+
+    </ul>
+</li>
+

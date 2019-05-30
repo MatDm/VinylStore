@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.BLL.UseCases;
@@ -15,6 +16,7 @@ using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
+    [Authorize]
     public class SearchController : Controller
     {
         private readonly IVinylRepository _vinylRepo;
@@ -31,6 +33,12 @@ namespace VinylStore.Controllers
             _vinylRepo = vinylRepo;
             _listRepositoryAccessor = listRepositoryAccessor;
             _spotifyService = spotifyService;
+        }
+
+        [HttpGet]
+        public IActionResult SearchByAlbum()
+        {
+            return RedirectToAction("Index", "Home");
         }
         
         [HttpPost]

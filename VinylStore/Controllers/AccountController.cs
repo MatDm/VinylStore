@@ -24,6 +24,11 @@ namespace VinylStore.Controllers
             _signInManager = signInManager;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -52,7 +57,7 @@ namespace VinylStore.Controllers
             }
 
             ModelState.AddModelError("", "Username/password");
-            return View();
+            return View("Register");
         }
 
         public IActionResult Register()
@@ -114,7 +119,7 @@ namespace VinylStore.Controllers
             if (result.Succeeded)
             {
                 if (returnUrl == null)
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("Index", "Home");
 
                 return Redirect(returnUrl);
             }
