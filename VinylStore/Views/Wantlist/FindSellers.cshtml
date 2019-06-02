@@ -5,11 +5,9 @@
 }
 
 <div class="text-white">
-    <h1>FindSellers</h1>
+    <h2>Users that have what you need</h2>
 </div>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table text-white">
     <thead>
         <tr>
@@ -38,7 +36,7 @@
                     @Html.DisplayFor(modelItem => item.Vinyl.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id })
+                    @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id }, new { @class = "btn btn-outline-success"})
                 </td>
                 <td>
 

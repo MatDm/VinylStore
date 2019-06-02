@@ -34,9 +34,9 @@ namespace VinylStore.Controllers
         }
         public ViewResult Index()
         {
-            //appeler méthode du use case qui récupère tous les users du site
-            //var users = _userManager.Users;
-            return View();
+            //appeler methode du usecase qui prend un user au hasard et donne sa collection
+            var vinyls = userRole.GetRandomCollection().Select(x => x.ToViewModel()).ToArray();
+            return View(vinyls);
         }
 
         public IActionResult Privacy()

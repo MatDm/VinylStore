@@ -37,6 +37,13 @@ namespace VinylStore.DAL.DataAccess
             return _db.Vinyls.Select(x => x.ToMTO());
         }
 
+        public IEnumerable<VinylForSaleMTO> GetAllVinylForSales()
+        {
+
+            return _db.Collections.Include(i => i.Vinyl).Include(i => i.User).Select(x => x.ToMTO());
+        }
+
+
         public VinylMTO GetVinylMTOById(string vinylId)
         {
             var vinylEF = _db.Vinyls.FirstOrDefault(v => v.Id == vinylId);
@@ -90,5 +97,11 @@ namespace VinylStore.DAL.DataAccess
             }
             return ReturnValue;
         }
+
+        //public IEnumerable<VinylForSaleMTO> GetRandomCollectionForSale(int randomNumber)
+        //{
+        //    var vinyls = GetAllVinylForSales();
+        //    return vinyls.Skip(randomNumber).Take(3);
+        //}
     }
 }

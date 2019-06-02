@@ -15,7 +15,8 @@ namespace VinylStore.ViewModels.TypeExtentions
                 AlbumName = vinylMTO.AlbumName,
                 ArtistName = vinylMTO.ArtistName,
                 ImageUrl = vinylMTO.ImageUrl,
-                VinylId = vinylMTO.Id
+                VinylId = vinylMTO.Id,
+                Price = vinylMTO.Price                 
             };
             return vinylShortViewModel;
         }

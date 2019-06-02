@@ -10,6 +10,7 @@ namespace VinylStore.ViewModels
         public string ImageUrl { get; set; }
         public string AlbumName { get; set; }
         public string ArtistName { get; set; }
+        public decimal Price { get; set; }
         public string VinylId { get; set; }
     }
 }

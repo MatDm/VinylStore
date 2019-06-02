@@ -12,25 +12,28 @@
     <table class="table table-striped text-white">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
-                </td>
-                <td>
-                    @item.ArtistName
-                </td>
-                <td>
-                    @item.AlbumName
-                </td>
-                <td>
-                    <div>
-                        @Html.ActionLink("Details", "Details", "Collection", new { vinylId = item.VinylId }, new { @class = "btn btn-outline-success" })
-                    </div>
-                    <div>
-                        @Html.ActionLink("Delete", "Delete", "Collection", new { vinylId = item.VinylId }, new { @class = "btn btn-danger" })
-                    </div>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <img src="@item.ImageUrl" alt="Image not available" height="150" width="150" />
+            </td>
+            <td>
+                @item.ArtistName
+            </td>
+            <td>
+                @item.AlbumName
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Details", "Details", "Collection", new { vinylId = item.VinylId }, new { @class = "btn btn-outline-success" })
+                </div>
+                <div>
+                    @Html.ActionLink("Delete", "Delete", "Collection", new { vinylId = item.VinylId }, new { @class = "btn btn-danger" })
+                </div>
+            </td>
+        </tr>
         }
     </table>
 </div>
