@@ -42,10 +42,12 @@ function openForm() {
     connection.invoke("RetrieveHistory", "receiverName", senderName).catch(function (err) {
         return console.error(err.toString());
     });
+    document.getElementById("openButton").style.display = "none";
 }
 
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+    document.getElementById("openButton").style.display = "block";
 }
 
 

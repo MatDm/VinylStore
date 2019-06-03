@@ -17,6 +17,7 @@ namespace VinylStore.BLL.UseCases
         //private readonly IUserRepository userRepository;
 
         public UserUC(string UserId, IVinylRepository vinylRepository, Func<string, IListRepository> listRepositoryAccessor, ISpotifyService spotifyService)
+            : base(vinylRepository)
         {
             userId = UserId;
             this.vinylRepository = vinylRepository;

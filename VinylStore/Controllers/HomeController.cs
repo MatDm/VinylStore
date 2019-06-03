@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VinylStore.Abstract;
@@ -17,10 +18,11 @@ using VinylStore.ViewModels.TypeExtentions;
 
 namespace VinylStore.Controllers
 {
+
     public class HomeController : Controller
     {
-        private UserUC userRole
-            => new UserUC(User.FindFirst(ClaimTypes.NameIdentifier).Value, _vinylRepo, _listRepositoryAccessor, _spotifyService);
+        private GuestUC guestUC
+            => new GuestUC(_vinylRepo);
         private readonly Func<string, IListRepository> _listRepositoryAccessor;
         private readonly ISpotifyService _spotifyService;
         private readonly IVinylRepository _vinylRepo;
@@ -31,12 +33,15 @@ namespace VinylStore.Controllers
         {
             _vinylRepo = vinylRepo;
             _userManager = userManager;
+            _listRepositoryAccessor = listRepositoryAccessor;
+            _spotifyService = spotifyService;
         }
         public ViewResult Index()
         {
             //appeler methode du usecase qui prend un user au hasard et donne sa collection
-            var vinyls = userRole.GetRandomCollection().Select(x => x.ToViewModel()).ToArray();
+            var vinyls = guestUC.GetRandomCollection().Select(x => x.ToViewModel()).ToArray();
             return View(vinyls);
+            //return View(new List<VinylForSaleViewModel>());
         }
 
         public IActionResult Privacy()

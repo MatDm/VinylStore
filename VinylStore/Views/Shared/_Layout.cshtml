@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/chat.css" />
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top">
             <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">Vinyl Store</a>
@@ -66,7 +66,8 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid h-100">
+        @*style="height: calc(100% - 60px)"*@
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @if (TempData["SuccessMessage"] != null)
