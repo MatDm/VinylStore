@@ -3,35 +3,35 @@
 *@
 @model VinylStore.ViewModels.VinylForSaleViewModel[]
 
+@{ 
+    string activeImageClass = "";
+}
+
 <h2 class="text-white text-center">Recently added by users</h2>
 
 <div id="carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" style="overflow: visible;">
-        <div class="carousel-item active">
-            <img class="d-block w-25 img-fluid carouselPerso" src="@Model[0].Vinyl.ImageUrl" alt="Image not available">
-            <div class="carousel-caption d-none d-sm-block" style="position:absolute; top:350px;">
-                <h4>@Model[0].User.UserName</h4>
-                <p>added</p>
-                <h5>@Model[0].Vinyl.AlbumName - @Model[0].Vinyl.ArtistName</h5>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-25 img-fluid carouselPerso" src="@Model[1].Vinyl.ImageUrl" alt="Image not available">
-            <div class="carousel-caption d-none d-sm-block" style="position:absolute; top:350px;">
-                <h4>@Model[1].User.UserName</h4>
-                <p>added</p>
-                <h5>@Model[1].Vinyl.AlbumName - @Model[1].Vinyl.ArtistName</h5>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-25 img-fluid carouselPerso" src="@Model[2].Vinyl.ImageUrl" alt="Image not available">
-            <div class="carousel-caption d-none d-sm-block" style="position:absolute; top:350px;">
-                <h4>@Model[2].User.UserName</h4>
-                <p>added</p>
-                <h5>@Model[2].Vinyl.AlbumName - @Model[2].Vinyl.ArtistName</h5>
-            </div>
-        </div>
 
+
+        @for (int i = 0; i < Model.Length; i++)
+        {
+            if (i == 0)
+            {
+                activeImageClass = "active";
+            }
+            else
+            {
+                activeImageClass = string.Empty;
+            }
+            <div class="carousel-item @activeImageClass">
+                <img class="d-block w-25 img-fluid carouselPerso" src="@Model[i].Vinyl.ImageUrl" alt="Image not available">
+                <div class="carousel-caption d-none d-sm-block" style="position:absolute; top:350px;">
+                    <h4>@Model[i].User.UserName</h4>
+                    <p>added</p>
+                    <h5>@Model[i].Vinyl.AlbumName - @Model[i].Vinyl.ArtistName</h5>
+                </div>
+            </div>
+        }
     </div>
     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
