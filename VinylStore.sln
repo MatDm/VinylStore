@@ -7,11 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylStore", "VinylStore\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyWebAPIMathieu", "SpotifyWebAPIMathieu\SpotifyWebAPIMathieu.csproj", "{1E5F77BE-6C37-484C-8292-B0D77B65262D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.DAL", "VinylStore.DAL\VinylStore.DAL.csproj", "{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylStore.DAL", "VinylStore.DAL\VinylStore.DAL.csproj", "{83FF84E4-6BBD-4D5F-B18A-FBDCA42876EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.Common", "VinylStore.Common\VinylStore.Common.csproj", "{3A58033A-E541-4593-BCA0-10316EE7BE31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylStore.Common", "VinylStore.Common\VinylStore.Common.csproj", "{3A58033A-E541-4593-BCA0-10316EE7BE31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylStore.BLL", "VinylStore.BLL\VinylStore.BLL.csproj", "{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylStore.BLL", "VinylStore.BLL\VinylStore.BLL.csproj", "{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApp", "PaymentApp\PaymentApp.csproj", "{BC86837A-B3D3-4B36-B82C-7D2D1270D0BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApp.DAL", "PaymentApp.DAL\PaymentApp.DAL.csproj", "{D8C0F68D-FE52-48B0-88CD-2E015D9299EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22AE4E2E-54D5-4C05-80B5-E6FF7A896174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC86837A-B3D3-4B36-B82C-7D2D1270D0BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC86837A-B3D3-4B36-B82C-7D2D1270D0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC86837A-B3D3-4B36-B82C-7D2D1270D0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC86837A-B3D3-4B36-B82C-7D2D1270D0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C0F68D-FE52-48B0-88CD-2E015D9299EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C0F68D-FE52-48B0-88CD-2E015D9299EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C0F68D-FE52-48B0-88CD-2E015D9299EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C0F68D-FE52-48B0-88CD-2E015D9299EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "PaymentReturn";
+}
+
+@if (ViewBag.success)
+{
+    <h1 class="text">Your payment has been accepted, thank you for your trust</h1>
+
+    <br />
+    <br />
+    <div style="font-size: 50px;text-align:center;">
+        <i class="far fa-check-circle fa-10x" style="color:forestgreen"></i>
+    </div>
+    <br />
+    <br />
+
+    <a class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" asp-area="" asp-controller="Collection" asp-action="DisplayMyCollection">Go to my collection</a>
+}
+else
+{
+    <h1 class="text">Your payment has been rejected, your purchase is cancelled</h1>
+
+    <br />
+    <br />
+    <div style="font-size: 50px;text-align:center;">
+        <i class="far fa-times-circle fa-10x" style="color:red"></i>
+    </div>
+    <br />
+    <br />
+
+    <a class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" asp-area="" asp-controller="Wantlist" asp-action="DisplayMyWantlist">Go to my wantlist</a>
+}
+
+@*Que se passe-t-il après un achat? => écrire le code (enlevé le vinyl de la wantlist, l'ajouter dans la collection, ...)*@
+

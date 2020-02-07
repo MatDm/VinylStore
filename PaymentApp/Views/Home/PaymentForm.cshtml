@@ -1,0 +1,135 @@
+﻿@model PaymentApp.Models.PaymentInfo
+@using PaymentApp.Enums
+
+@{
+    ViewData["Title"] = "PaymentForm";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PaymentForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset id="totalForm">
+                        <legend>Your payment information</legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <input id="totalTr" class="form-control" placeholder="The transaction reference is : " readonly />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <input asp-for="TransactionId" class="form-control" value="@ViewBag.Id" readonly />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <input id="totalTr" class="form-control" placeholder="Your payment amount is : " readonly />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <input asp-for="Total" class="form-control" value="@ViewBag.Total" readonly />
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <fieldset id="adressForm">
+                <legend>Address</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Country" class="control-label"></label>
+                        <input asp-for="Country" class="form-control" placeholder="Country" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PostalCode" class="control-label"></label>
+                        <input asp-for="PostalCode" class="form-control" placeholder="Postal code" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <label asp-for="Street" class="control-label"></label>
+                        <input asp-for="Street" class="form-control" placeholder="Street" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="StreetNumber" class="control-label"></label>
+                        <input asp-for="StreetNumber" class="form-control" placeholder="Street number" />
+                        <span asp-validation-for="StreetNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="cardForm">
+                <legend>Payment card information</legend>
+                <div id="payementOption">
+                    @foreach (var item in Enum.GetValues(typeof(PaymentOption)))
+                    {
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="paymentoption" id="@item" value="@item" />
+                            <label class="form-check-label" for="@item">
+                                @item
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label asp-for="CardholderName" class="control-label"></label>
+                    <input asp-for="CardholderName" class="form-control" placeholder="Cardholder name" />
+                    <span asp-validation-for="CardholderName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CardNumber" class="control-label"></label>
+                    <input asp-for="@Model.CardNumber" class="form-control" placeholder="Card number" />
+                    <span asp-validation-for="@Model.CardNumber" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="MonthExpDate" class="control-label"></label>
+                        <select asp-for="MonthExpDate" id="inputMonth" class="form-control" asp-validation-for="MonthExpDate">
+                            @for (int i = 1; i < 13; i++)
+                            {
+                                <option>@i</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="YearExpDate" class="control-label"></label>
+                        <select asp-for="YearExpDate" id="inputYear" class="form-control" asp-validation-for="YearExpDate">
+                            @for (int i = DateTime.Now.Year; i < DateTime.Now.Year + 11; i++)
+                            {
+                                <option>@i</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="SecretNumber" class="control-label"></label>
+                        <input asp-for="SecretNumber" class="form-control" id="secretnumber" />
+                        <span asp-validation-for="SecretNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div id="validationCardButton">
+                    <button id="testCardButton" type="button" class="btn btn-primary">Test the card</button>
+                </div>
+            </fieldset>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset id="validationForm">
+                        <legend>Validate or cancel</legend>
+                        <div id="validationButton" class="form-group">
+                            <input type="submit" class="btn btn-primary validationButtons" value="Pay" id="submitPayment" disabled="disabled" />
+                            @Html.ActionLink("Cancel", "Index", "Home", null, new { @id = "cancel", @class = "btn btn-primary validationButtons"})
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

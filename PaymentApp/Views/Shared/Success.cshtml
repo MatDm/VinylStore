@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+}
+
+<h1 class="text">Votre paiement a été accepté</h1>
+<h6 class="text-info">Veuillez vous rediriger vers le site d'achat</h6>
+
+<br />
+<br />
+<div style="font-size: 50px;text-align:center;">
+    <i class="far fa-check-circle fa-10x" style="color:forestgreen"></i>
+</div>
+<br />
+<br />
+
+<a href="@ViewBag.CallbackUrl" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Revenir au site marchand</a>
+

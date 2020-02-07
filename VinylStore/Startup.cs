@@ -44,7 +44,7 @@ namespace VinylStore
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddDbContext<VinylStoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Azure")));
+            services.AddDbContext<VinylStoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

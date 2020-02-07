@@ -39,7 +39,9 @@
                     @Html.ActionLink("Details", "Details", "Vinyl", new { id = item.Vinyl.Id }, new { @class = "btn btn-outline-success"})
                 </td>
                 <td>
-
+                    @*@Html.ActionLink("Buy!", "Buy", "Vinyl", new { vinylId = item.Vinyl.Id }, new { @class = "btn btn-outline-success" })*@
+                    <a class="btn btn-outline-success" 
+                       asp-controller="Wantlist" asp-action="Buy" asp-route-vinylId="@item.Vinyl.Id" asp-route-buyerId="@User.Identity.Name"></a>
                 </td>
             </tr>
         }

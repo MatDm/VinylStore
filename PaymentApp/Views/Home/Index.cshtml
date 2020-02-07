@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h2 class="display-4">Please click "Pay" to proceed with your payment</h2>
+    <br />
+    @Html.ActionLink("Pay", "PaymentForm", "Home", new {id = ViewBag.Id }, new { @class = "btn btn-info"})
+</div>
