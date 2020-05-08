@@ -109,6 +109,12 @@ namespace VinylStore.Controllers
             return RedirectToAction("Details", new { vinylId = vinyl.Id });
         }
 
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
 
     }
 }

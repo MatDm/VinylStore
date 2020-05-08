@@ -9,9 +9,18 @@
 
     <ul class="dropdown-menu">
         <li>
+            <a asp-controller="Collection" asp-action="DisplayMyCollection">COLLECTION</a>
+        </li>
+        <li>
+            <a asp-controller="Collection" asp-action="DisplayMyCollection">FOR SALE</a>
+        </li>
+        <li>
+            <a asp-controller="Wantlist" asp-action="DisplayMyWantlist">WANTLIST</a>
+        </li>
+        <li>
             <form asp-controller="Account" asp-action=@Model.ActionValue id="logoutForm" method="post">
                 <a href="javascript:document.getElementById('logoutForm').submit()">@Model.DisplayValue</a>
-            </form>           
+            </form>
         </li>
 
     </ul>

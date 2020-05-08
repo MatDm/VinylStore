@@ -7,6 +7,11 @@
 <div class="text-white">
     <p hidden>vous avez comme id : @ViewBag.UserId et comme nom : @ViewBag.UserName</p>
     <h1 class="text-white">Your collection :</h1>
+    <form asp-action="Add" asp-controller="Collection" method="get">
+        <button class="btn btn-outline-success mx-5 my-1" type="submit">
+            Add new!
+        </button>
+    </form>
 
 
     <table class="table table-striped text-white">

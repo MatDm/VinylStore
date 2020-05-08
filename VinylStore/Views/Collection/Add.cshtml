@@ -1,0 +1,108 @@
+﻿@model VinylStore.ViewModels.VinylViewModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+    <div class="text-white">
+        <h1>Add</h1>
+
+
+        <br><div class="container">
+            <div class="row">
+                <div class="d-flex flex-column mb-3 mx-3 imgUp">
+                    <div class="imagePreview"></div>
+                    <label class="btn btn-primary">
+                        Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                    </label>
+                </div><!-- d-flex -->
+                <i class="fa fa-plus imgAdd"></i>
+            </div><!-- row -->
+        </div><!-- container -->
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Add">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Id" class="form-control" hidden />
+                    </div>
+
+                    @*<div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                   aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>*@
+
+                    @*<input type="file" name="img[]" class="file" accept="image/*">*@
+
+
+
+                    @*<div class="input-group">
+                        <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                        <div class="input-group-append">
+                            <button type="button" class="browse btn btn-primary">Browse...</button>
+                        </div>
+                    </div>*@
+                    @*<div class="ml-2 col-sm-6">
+                        <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
+                    </div>*@
+                    <div class="form-group">
+                        <label asp-for="ImageUrl" class="control-label"></label>
+                        <input asp-for="ImageUrl" class="form-control" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AlbumName" class="control-label">Album Title</label>
+                        <input asp-for="AlbumName" class="form-control" />
+                        <span asp-validation-for="AlbumName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ArtistName" class="control-label">Artist</label>
+                        <input asp-for="ArtistName" class="form-control" />
+                        <span asp-validation-for="ArtistName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Genres" class="control-label">Genre</label>
+                        <input asp-for="Genres" class="form-control" />
+                        <span asp-validation-for="Genres" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReleaseYear" class="control-label">Year</label>
+                        <input asp-for="ReleaseYear" class="form-control" />
+                        <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TrackList" class="control-label">Tracklist</label>
+                        <input asp-for="TrackList" class="form-control" />
+                        <span asp-validation-for="TrackList" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label">Price</label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Label" class="control-label">Label</label>
+                        <input asp-for="Label" class="form-control" />
+                        <span asp-validation-for="Label" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
